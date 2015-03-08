@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_corners"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/float_margin"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:elevation="@dimen/elevation_high"
+    tools:context="com.ongtonnesoup.scrum.fragments.PopupFragment">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/number_selection_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="@dimen/activity_vertical_margin"
+        android:horizontalSpacing="@dimen/activity_horizontal_margin"
+        android:stretchMode="columnWidth"
+        android:gravity="center" />
+
+</FrameLayout>

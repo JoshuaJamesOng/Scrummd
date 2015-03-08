@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="white" type="color">#FFFFFF</item>
+    <item name="grey50" type="color">#ECEFF1</item>
+    <item name="grey100" type="color">#CFD8DC</item>
+
+    <item name="red100" type="color">#FF8A80</item>
+    <item name="red500" type="color">#F44336</item>
+    <item name="red700" type="color">#D32F2F</item>
+    <item name="pink100" type="color">#FF80AB</item>
+    <item name="pink500" type="color">#E91E63</item>
+    <item name="pink700" type="color">#C2185B</item>
+    <item name="purple100" type="color">#EA80FC</item>
+    <item name="purple500" type="color">#9C27B0</item>
+    <item name="purple700" type="color">#7B1FA2</item>
+    <item name="indigo100" type="color">#8C9EFF</item>
+    <item name="indigo500" type="color">#3F51B5</item>
+    <item name="indigo700" type="color">#303F9F</item>
+    <item name="blue100" type="color">#82B1FF</item>
+    <item name="blue500" type="color">#2196F3</item>
+    <item name="blue700" type="color">#1976D2</item>
+    <item name="lightblue100" type="color">#80D8FF</item>
+    <item name="lightblue500" type="color">#03A9F4</item>
+    <item name="lightblue700" type="color">#0288D1</item>
+    <item name="cyan100" type="color">#84FFFF</item>
+    <item name="cyan500" type="color">#00BCD4</item>
+    <item name="cyan700" type="color">#0097A7</item>
+    <item name="teal100" type="color">#A7FFEB</item>
+    <item name="teal500" type="color">#009688</item>
+    <item name="teal700" type="color">#00796B</item>
+    <item name="orange100" type="color">#FFD180</item>
+    <item name="orange500" type="color">#FF9800</item>
+    <item name="orange700" type="color">#F57C00</item>
+
+
+    <array name="fill_colours">
+        <item>@color/red100</item>
+        <item>@color/pink100</item>
+        <item>@color/purple100</item>
+        <item>@color/indigo100</item>
+        <item>@color/blue100</item>
+        <item>@color/lightblue100</item>
+        <item>@color/cyan100</item>
+        <item>@color/teal100</item>
+        <item>@color/orange100</item>
+    </array>
+
+    <array name="background_colors">
+        <item>@color/red500</item>
+        <item>@color/pink500</item>
+        <item>@color/purple500</item>
+        <item>@color/indigo500</item>
+        <item>@color/blue500</item>
+        <item>@color/lightblue500</item>
+        <item>@color/cyan500</item>
+        <item>@color/teal500</item>
+        <item>@color/orange500</item>
+    </array>
+
+    <array name="status_bar_colors">
+        <item>@color/red700</item>
+        <item>@color/pink700</item>
+        <item>@color/purple700</item>
+        <item>@color/indigo700</item>
+        <item>@color/blue700</item>
+        <item>@color/lightblue700</item>
+        <item>@color/cyan700</item>
+        <item>@color/teal700</item>
+        <item>@color/orange700</item>
+    </array>
+
+</resources>
