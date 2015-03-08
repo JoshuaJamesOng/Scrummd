@@ -8,11 +8,11 @@ import android.view.WindowManager;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.events.ThemeUpdated;
+import com.ongtonnesoup.scrum.events.UpdateTheme;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.NumberModel;
-import com.ongtonnesoup.scrum.events.ThemeUpdated;
-import com.ongtonnesoup.scrum.events.UpdateTheme;
 import com.squareup.otto.Subscribe;
 
 import java.util.Random;
@@ -24,14 +24,14 @@ import butterknife.InjectView;
 
 public class NumberPresenter {
 
-    @Inject
-    public ColourTheme mColourTheme;
     private final Random mRandom;
     private final Window mWindow;
+    @Inject
+    ColourTheme mColourTheme;
     @InjectView(R.id.circle_view)
-    public CircleView mCircleView;
+    CircleView mCircleView;
     @InjectView(R.id.number_fragment)
-    public View mBackgroundView;
+    View mBackgroundView;
     private int mPrevIndex;
 
     public NumberPresenter(View view, Fragment fragment) {

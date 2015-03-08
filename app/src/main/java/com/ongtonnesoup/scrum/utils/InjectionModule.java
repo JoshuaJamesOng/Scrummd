@@ -22,7 +22,7 @@ import dagger.Provides;
         PopupFragment.class,
         NumberAdapter.class,
         NumberPresenter.class,
-        ColourThemeManager.class },
+        ColourThemeManager.class},
         library = true, complete = true)
 public class InjectionModule {
 

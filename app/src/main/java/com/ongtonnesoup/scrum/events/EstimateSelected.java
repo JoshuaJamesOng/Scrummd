@@ -4,6 +4,16 @@ import com.squareup.otto.Produce;
 
 public class EstimateSelected {
 
+    private final String mNumber;
+
+    private EstimateSelected(String number) {
+        mNumber = number;
+    }
+
+    public String getNumber() {
+        return mNumber;
+    }
+
     public static class Factory {
 
         public static String mNumber;
@@ -17,15 +27,5 @@ public class EstimateSelected {
         public static EstimateSelected produceEvent() {
             return new EstimateSelected(mNumber);
         }
-    }
-
-    private String mNumber;
-
-    public EstimateSelected(String number) {
-        mNumber = number;
-    }
-
-    public String getNumber() {
-        return mNumber;
     }
 }

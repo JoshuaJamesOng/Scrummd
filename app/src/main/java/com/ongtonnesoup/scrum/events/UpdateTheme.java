@@ -5,6 +5,16 @@ import com.squareup.otto.Produce;
 
 public class UpdateTheme {
 
+    private final Integer mNumber;
+
+    public UpdateTheme(Integer number) {
+        mNumber = number;
+    }
+
+    public Integer getColourIndex() {
+        return mNumber;
+    }
+
     public static class Factory {
 
         public static Integer mNumber;
@@ -18,15 +28,5 @@ public class UpdateTheme {
         public static UpdateTheme produceEvent() {
             return new UpdateTheme(mNumber);
         }
-    }
-
-    private Integer mNumber;
-
-    public UpdateTheme(Integer number) {
-        mNumber = number;
-    }
-
-    public Integer getColourIndex() {
-        return mNumber;
     }
 }

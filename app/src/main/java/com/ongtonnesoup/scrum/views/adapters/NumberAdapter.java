@@ -14,14 +14,12 @@ import com.ongtonnesoup.scrum.models.NumberModel;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
-
 public class NumberAdapter extends BaseAdapter {
 
+    private final Context mContext;
+    private final String[] mNumbers;
     @Inject
-    public ColourTheme mColourTheme;
-    private Context mContext;
-    private String[] mNumbers;
+    ColourTheme mColourTheme;
 
     public NumberAdapter(Context c, NumberModel numberModel) {
         ScrummdApplication.inject(this);

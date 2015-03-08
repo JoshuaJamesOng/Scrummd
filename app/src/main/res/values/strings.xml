@@ -3,5 +3,6 @@
 
     <string name="app_name">Scrummd</string>
     <string name="title_activity_main">Scrummd</string>
+    <string name="add_button">Select Estimate</string>
 
 </resources>

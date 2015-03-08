@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
-import com.ongtonnesoup.scrum.models.NumberModel;
 import com.ongtonnesoup.scrum.events.TouchGesture;
+import com.ongtonnesoup.scrum.models.NumberModel;
 import com.ongtonnesoup.scrum.models.TouchType;
 import com.ongtonnesoup.scrum.views.NumberPresenter;
 import com.squareup.otto.Subscribe;
@@ -22,7 +22,7 @@ public class NumberFragment extends Fragment {
     public static final String TAG = "TAG_NumberFragment";
 
     @Inject
-    public NumberModel mNumberModel;
+    NumberModel mNumberModel;
     private NumberPresenter mNumberPresenter;
 
     @Override

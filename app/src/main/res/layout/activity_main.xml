@@ -1,7 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context="com.ongtonnesoup.scrum.MainActivity">
 
     <RelativeLayout
@@ -16,10 +14,11 @@
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="@dimen/add_button_margin"
         android:layout_marginEnd="@dimen/add_button_margin"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@color/grey100"
         android:background="@drawable/oval_ripple"
+        android:contentDescription="@string/add_button"
         android:elevation="@dimen/elevation_low"
-        android:stateListAnimator="@anim/button_elevation"/>
+        android:src="@android:drawable/ic_input_add"
+        android:stateListAnimator="@anim/button_elevation"
+        android:tint="@color/grey100" />
 
-</FrameLayout>
+</merge>

@@ -4,9 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 
 import com.ongtonnesoup.scrum.R;
+import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
-import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.squareup.otto.Subscribe;
 
 public class FragmentManager {
@@ -17,7 +17,7 @@ public class FragmentManager {
         mFragmentManager = fragmentManager;
     }
 
-    public void replaceFragment(Fragment fragment, String tag, boolean addToBackstack) {
+    void replaceFragment(Fragment fragment, String tag, boolean addToBackstack) {
         FragmentTransaction ft = mFragmentManager.beginTransaction();
         ft.add(R.id.fragment_container, fragment, tag);
         if (addToBackstack) {
@@ -26,18 +26,18 @@ public class FragmentManager {
         ft.commit();
     }
 
-    public void addFragment(Fragment fragment, String tag) {
+    void addFragment(Fragment fragment, String tag) {
         mFragmentManager.beginTransaction().add(R.id.fragment_container, fragment, tag).addToBackStack(null).commit();
     }
 
-    public void removeFragment(Fragment fragment) {
+    void removeFragment(Fragment fragment) {
         mFragmentManager.beginTransaction().detach(fragment).commit();
         mFragmentManager.popBackStack();
     }
 
     public void createNumbersFragment() {
         Fragment fragment = mFragmentManager.findFragmentByTag(NumberFragment.TAG);
-        if(fragment == null) {
+        if (fragment == null) {
             replaceFragment(new NumberFragment(), NumberFragment.TAG, false);
         } else {
             replaceFragment(fragment, NumberFragment.TAG, false);

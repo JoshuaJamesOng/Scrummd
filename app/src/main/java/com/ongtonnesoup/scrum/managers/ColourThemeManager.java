@@ -4,23 +4,21 @@ import android.content.res.Resources;
 
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.events.ThemeUpdated;
 import com.ongtonnesoup.scrum.events.UpdateTheme;
+import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
 public class ColourThemeManager {
 
-    public static int POOL_SIZE = 9;
-
-    @Inject
-    ColourTheme mColourTheme;
-
+    public static final int POOL_SIZE = 9;
     private final int[] mBackgroundColors;
     private final int[] mFillColors;
     private final int[] mStatusBarColors;
+    @Inject
+    ColourTheme mColourTheme;
 
     public ColourThemeManager(Resources resources) {
         ScrummdApplication.inject(this);
@@ -30,7 +28,7 @@ public class ColourThemeManager {
         updateTheme(0);
     }
 
-    public void updateTheme(int index) {
+    void updateTheme(int index) {
         mColourTheme.setPrimary(mBackgroundColors[index]);
         mColourTheme.setSecondary(mStatusBarColors[index]);
         mColourTheme.setAccent(mFillColors[index]);

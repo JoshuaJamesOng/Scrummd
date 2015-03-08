@@ -20,10 +20,10 @@ import javax.inject.Inject;
 
 public class PopupFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public static String TAG = "TAG_PopupFragment";
+    public static final String TAG = "TAG_PopupFragment";
 
     @Inject
-    public NumberModel mNumberModel;
+    NumberModel mNumberModel;
     private GridView mGridview;
 
     @Override

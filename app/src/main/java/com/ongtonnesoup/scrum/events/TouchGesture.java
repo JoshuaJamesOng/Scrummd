@@ -5,6 +5,16 @@ import com.squareup.otto.Produce;
 
 public class TouchGesture {
 
+    private final TouchType mTouchType;
+
+    private TouchGesture(TouchType touchType) {
+        mTouchType = touchType;
+    }
+
+    public TouchType getTouch() {
+        return mTouchType;
+    }
+
     public static class Factory {
 
         public static TouchType mTouchType = TouchType.NONE;
@@ -18,16 +28,5 @@ public class TouchGesture {
         public static TouchGesture produceTouchEvent() {
             return new TouchGesture(mTouchType);
         }
-    }
-
-
-    private TouchType mTouchType;
-
-    public TouchGesture(TouchType touchType) {
-        mTouchType = touchType;
-    }
-
-    public TouchType getTouch() {
-        return mTouchType;
     }
 }
