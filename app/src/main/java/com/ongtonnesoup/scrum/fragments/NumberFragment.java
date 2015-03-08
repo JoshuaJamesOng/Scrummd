@@ -67,8 +67,6 @@ public class NumberFragment extends Fragment {
             mNumberModel.previousNumber();
             mNumberPresenter.updateNumber(mNumberModel.getCurrent());
             mNumberPresenter.changeTheme();
-        } else if (event.getTouch().equals(TouchType.TAP)) {
-            mNumberPresenter.changeTheme();
         }
     }
 
