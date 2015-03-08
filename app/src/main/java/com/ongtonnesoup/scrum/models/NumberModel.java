@@ -26,12 +26,16 @@ public class NumberModel {
     public void nextNumber() {
         if (mCurrentNumberIndex < numbers.length - 1) {
             mCurrentNumberIndex++;
+        } else {
+            mCurrentNumberIndex = 0;
         }
     }
 
     public void previousNumber() {
         if (mCurrentNumberIndex > 0) {
             mCurrentNumberIndex--;
+        } else {
+            mCurrentNumberIndex = numbers.length - 1;
         }
     }
 
