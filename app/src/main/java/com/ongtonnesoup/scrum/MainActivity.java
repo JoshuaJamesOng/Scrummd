@@ -1,8 +1,11 @@
 package com.ongtonnesoup.scrum;
 
 import android.animation.ArgbEvaluator;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
@@ -22,7 +26,7 @@ import butterknife.InjectView;
 public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
     @InjectView(R.id.add_button)
-    View mAddButton;
+    FloatingActionButton mAddButton;
     FragmentManager mFragmentManager;
     private ColourThemeManager mColourThemeManager;
     private ViewPager mPager;
@@ -38,6 +42,8 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
         ScrummdApplication.inject(this);
         ButterKnife.inject(this);
+
+        CoordinatorLayout rootLayout = (CoordinatorLayout) findViewById(R.id.rootLayout);
 
         mWindow = getWindow();
 
@@ -57,6 +63,10 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mPager.setOnPageChangeListener(this);
         mPagerAdapter = new NumberFragmentPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+        MaterialRippleLayout.on(mAddButton)
+                .rippleColor(Color.BLACK)
+                .create();
     }
 
     @Override
