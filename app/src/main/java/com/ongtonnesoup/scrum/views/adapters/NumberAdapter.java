@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.ColourTheme;
@@ -51,7 +52,7 @@ public class NumberAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.grid_item, null);
 
             viewHolder = new NumberHolder();
-            viewHolder.textView = (TextView) convertView.findViewById(R.id.grid_item_text);
+            viewHolder.textView = (CircleView) convertView.findViewById(R.id.grid_item_text);
 
             convertView.setTag(viewHolder);
 
@@ -59,12 +60,13 @@ public class NumberAdapter extends BaseAdapter {
             viewHolder = (NumberHolder) convertView.getTag();
         }
 
-        viewHolder.textView.setText(mNumbers[position]);
-        viewHolder.textView.setTextColor(mColor);
+        viewHolder.textView.setTitleText(mNumbers[position]);
+        viewHolder.textView.setFillColor(mColor);
+        viewHolder.textView.setStrokeColor(mColor);
         return convertView;
     }
 
     class NumberHolder {
-        TextView textView;
+        CircleView textView;
     }
 }
