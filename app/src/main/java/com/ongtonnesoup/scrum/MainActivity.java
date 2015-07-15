@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
+                int position = calculateFabPosition();
                 PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
                 popupFragment.show(mFragmentManager, "YO");
             }
@@ -97,6 +97,14 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
             mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             mWindow.setStatusBarColor(color);
+        }
+    }
+
+    private int calculateFabPosition() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
+        } else {
+            return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight());
         }
     }
 
