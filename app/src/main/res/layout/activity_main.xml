@@ -26,7 +26,8 @@
             app:pressedTranslationZ="12dp"
             app:borderWidth="0dp"
             app:fabSize="normal"
-            app:backgroundTint="@color/white"/>
+            app:backgroundTint="@color/white"
+            app:rippleColor="@color/red100"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

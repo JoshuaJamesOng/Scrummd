@@ -21,14 +21,21 @@ import javax.inject.Inject;
 
 public class PopupFragment extends DialogFragment implements AdapterView.OnItemClickListener {
 
+    private static String KEY_Y_POS = "KEY_Y_Pos";
+    private static String KEY_TEXT_COLOR = "KEY_Text_Color";
     @Inject
     NumberModel mNumberModel;
     private GridView mGridview;
     private NumberAdapter mAdapter;
     private int mTextColor;
 
-    public static PopupFragment newInstance() {
-        return new PopupFragment();
+    public static PopupFragment newInstance(int y, int color) {
+        PopupFragment fragment = new PopupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_Y_POS, y);
+        bundle.putInt(KEY_TEXT_COLOR, color);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -56,19 +63,21 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         getDialog().setCanceledOnTouchOutside(true);
 
         View view = inflater.inflate(R.layout.fragment_settings, null);
+
+        if (getArguments() != null) {
+            if (getArguments().containsKey(KEY_Y_POS)) {
+                setPosition(getArguments().getInt(KEY_Y_POS));
+            }
+            if (getArguments().containsKey(KEY_TEXT_COLOR)) {
+                mTextColor = getArguments().getInt(KEY_TEXT_COLOR);
+            }
+        }
+
         mGridview = (GridView) view.findViewById(R.id.number_selection_gridview);
         mAdapter = new NumberAdapter(mNumberModel);
         mAdapter.setTextColor(mTextColor);
         mGridview.setAdapter(mAdapter);
         mGridview.setOnItemClickListener(this);
-
-        Window window = getDialog().getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-
-        wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        wlp.y = 200;
-        window.setAttributes(wlp);
 
         return view;
     }
@@ -79,7 +88,8 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         dismiss();
     }
 
-    @Override public void onStart() {
+    @Override
+    public void onStart() {
         super.onStart();
 
         Window window = getDialog().getWindow();
@@ -89,8 +99,13 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         window.setAttributes(windowParams);
     }
 
-    public void setTextColor(int c) {
-        mTextColor = c;
-    }
+    private void setPosition(int y) {
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
 
+        wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        wlp.y = y;
+        window.setAttributes(wlp);
+    }
 }

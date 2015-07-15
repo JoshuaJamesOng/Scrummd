@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
     private NumberFragmentPagerAdapter mPagerAdapter;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     private Window mWindow;
-    private PopupFragment mPopupFragment;
+    private int mPopupFragmentTextColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +50,15 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mColourThemeManager = new ColourThemeManager();
 
         mFragmentManager = getSupportFragmentManager();
-        mPopupFragment = PopupFragment.newInstance();
+
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPopupFragment.show(mFragmentManager, "YO");
+                int position = (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
+                PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
+                popupFragment.show(mFragmentManager, "YO");
             }
         });
-
 
         mPager = (ViewPager) findViewById(R.id.fragment_container);
         mPager.setOnPageChangeListener(this);
@@ -105,11 +106,11 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         if (position < (mPagerAdapter.getCount() - 1) && position < (background.length - 1)) {
             mPager.setBackgroundColor((Integer) argbEvaluator.evaluate(positionOffset, background[position], background[position + 1]));
             updateStatusBar((Integer) argbEvaluator.evaluate(positionOffset, status[position], status[position + 1]));
-            mPopupFragment.setTextColor((Integer) argbEvaluator.evaluate(positionOffset, fill[position], fill[position + 1]));
+            mPopupFragmentTextColor = ((Integer) argbEvaluator.evaluate(positionOffset, fill[position], fill[position + 1]));
         } else {
             mPager.setBackgroundColor(background[background.length - 1]);
             updateStatusBar(status[status.length - 1]);
-            mPopupFragment.setTextColor(fill[fill.length - 1]);
+            mPopupFragmentTextColor = (fill[fill.length - 1]);
         }
 
     }
