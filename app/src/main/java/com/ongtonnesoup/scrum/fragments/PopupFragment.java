@@ -65,8 +65,9 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
 
-        wlp.gravity = Gravity.BOTTOM;
+        wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        wlp.y = 200;
         window.setAttributes(wlp);
 
         return view;
