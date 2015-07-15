@@ -16,15 +16,18 @@ import javax.inject.Inject;
 
 public class NumberAdapter extends BaseAdapter {
 
-    private final Context mContext;
-    private final String[] mNumbers;
     @Inject
-    ColourTheme mColourTheme;
+    Context mContext;
+    private final String[] mNumbers;
+    private int mColor;
 
-    public NumberAdapter(Context c, NumberModel numberModel) {
+    public NumberAdapter(NumberModel numberModel) {
         ScrummdApplication.inject(this);
-        mContext = c;
         mNumbers = numberModel.getValues();
+    }
+
+    public void setTextColor(int c) {
+        mColor = c;
     }
 
     public int getCount() {
@@ -57,7 +60,7 @@ public class NumberAdapter extends BaseAdapter {
         }
 
         viewHolder.textView.setText(mNumbers[position]);
-        viewHolder.textView.setTextColor(mColourTheme.getTextColor());
+        viewHolder.textView.setTextColor(mColor);
         return convertView;
     }
 

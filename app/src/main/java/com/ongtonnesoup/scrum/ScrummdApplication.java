@@ -30,7 +30,7 @@ public class ScrummdApplication extends Application {
 
     @Override
     public void onCreate() {
-        mObjectGraph = ObjectGraph.create(new InjectionModule());
+        mObjectGraph = ObjectGraph.create(new InjectionModule(getApplicationContext()));
         mBus = new Bus();
     }
 
