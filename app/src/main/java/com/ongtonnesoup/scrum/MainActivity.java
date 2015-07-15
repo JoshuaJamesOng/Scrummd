@@ -4,7 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -42,8 +41,6 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
 
         ScrummdApplication.inject(this);
         ButterKnife.inject(this);
-
-        CoordinatorLayout rootLayout = (CoordinatorLayout) findViewById(R.id.rootLayout);
 
         mWindow = getWindow();
 
@@ -117,10 +114,12 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
             mPager.setBackgroundColor((Integer) argbEvaluator.evaluate(positionOffset, background[position], background[position + 1]));
             updateStatusBar((Integer) argbEvaluator.evaluate(positionOffset, status[position], status[position + 1]));
             mPopupFragmentTextColor = ((Integer) argbEvaluator.evaluate(positionOffset, fill[position], fill[position + 1]));
+            mAddButton.setColorFilter((Integer) argbEvaluator.evaluate(positionOffset, status[position], status[position + 1]));
         } else {
             mPager.setBackgroundColor(background[background.length - 1]);
             updateStatusBar(status[status.length - 1]);
             mPopupFragmentTextColor = (fill[fill.length - 1]);
+            mAddButton.setColorFilter(status[status.length - 1]);
         }
 
     }
