@@ -22,8 +22,11 @@
             android:src="@android:drawable/ic_input_add"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
+            android:elevation="@dimen/elevation_high"
+            app:pressedTranslationZ="12dp"
             app:borderWidth="0dp"
-            app:fabSize="normal" />
+            app:fabSize="normal"
+            app:backgroundTint="@color/white"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
