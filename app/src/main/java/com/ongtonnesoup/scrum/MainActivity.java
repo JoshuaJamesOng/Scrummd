@@ -65,9 +65,11 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         mPagerAdapter = new NumberFragmentPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
-        MaterialRippleLayout.on(mAddButton)
-                .rippleColor(Color.BLACK)
-                .create();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            MaterialRippleLayout.on(mAddButton)
+                    .rippleColor(Color.BLACK)
+                    .create();
+        }
     }
 
     @Override
