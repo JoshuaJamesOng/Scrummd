@@ -1,13 +1,10 @@
 package com.ongtonnesoup.scrum.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
@@ -24,10 +21,8 @@ public class NumberFragment extends Fragment {
     private static final String KEY_THEME = "KEY_Theme";
 
     @InjectView(R.id.circle_view)
-    CircleView mCircleView;
-
-
-    private ColourTheme mColourTheme;
+    protected CircleView mCircleView;
+    protected ColourTheme mColourTheme;
 
     public static NumberFragment newInstance(String estimate, ColourTheme colourTheme) {
         NumberFragment fragment = new NumberFragment();
@@ -38,14 +33,34 @@ public class NumberFragment extends Fragment {
         return fragment;
     }
 
-    public ColourTheme getColourTheme() {
-        return mColourTheme;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScrummdApplication.inject(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_number, container, false);
+        ButterKnife.inject(this, view);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            if (arguments.containsKey(KEY_ESTIMATE)) {
+                String estimate = arguments.getString(KEY_ESTIMATE);
+                setEstimate(estimate);
+            }
+            if (arguments.containsKey(KEY_THEME)) {
+                mColourTheme = arguments.getParcelable(KEY_THEME);
+                setColor(mColourTheme.getCircleColor());
+            }
+        } else {
+            setEstimate(NumberModel.INITIAL);
+        }
+
+        return view;
     }
 
     @Override
@@ -60,34 +75,11 @@ public class NumberFragment extends Fragment {
         super.onPause();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_number, container, false);
-        ButterKnife.inject(this, view);
-
-        if (getArguments() != null) {
-            if (getArguments().containsKey(KEY_ESTIMATE)) {
-                String estimate = getArguments().getString(KEY_ESTIMATE);
-                updateNumber(estimate);
-            }
-            if (getArguments().containsKey(KEY_THEME)) {
-                mColourTheme = getArguments().getParcelable(KEY_THEME);
-                updateFill(mColourTheme.getCircleColor());
-            }
-        } else {
-            updateNumber(NumberModel.INITIAL);
-        }
-
-        return view;
-    }
-
-    public void updateNumber(String number) {
+    private void setEstimate(String number) {
         mCircleView.setTitleText(number);
     }
 
-    private void updateFill(int color) {
+    private void setColor(int color) {
         mCircleView.setFillColor(color);
         mCircleView.setStrokeColor(color);
     }
