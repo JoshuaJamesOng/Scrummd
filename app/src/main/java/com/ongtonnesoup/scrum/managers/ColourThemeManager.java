@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 public class ColourThemeManager {
 
-    public static final int POOL_SIZE = 9;
     @Inject
     Resources mResources;
     private final int[] mBackgroundColors;

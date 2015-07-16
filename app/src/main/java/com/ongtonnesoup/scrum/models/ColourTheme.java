@@ -3,7 +3,7 @@ package com.ongtonnesoup.scrum.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ColourTheme implements Parcelable {
+public class ColourTheme {
 
     private int mPrimaryColor;
     private int mSecondaryColor;
@@ -49,25 +49,4 @@ public class ColourTheme implements Parcelable {
         return mSecondaryColor;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeIntArray(new int[]{this.mPrimaryColor,
-                this.mSecondaryColor,
-                this.mAccentColor});
-    }
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public ColourTheme createFromParcel(Parcel in) {
-            return new ColourTheme(in);
-        }
-
-        public ColourTheme[] newArray(int size) {
-            return new ColourTheme[size];
-        }
-    };
 }

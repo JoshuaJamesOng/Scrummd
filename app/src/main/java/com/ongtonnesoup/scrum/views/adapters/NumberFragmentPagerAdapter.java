@@ -28,7 +28,7 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         String number = mNumberModel.getNumbers()[i];
         ColourTheme theme = mColourThemeManager.generateNewColourTheme(i);
-        return NumberFragment.newInstance(number, theme);
+        return NumberFragment.newInstance(number, theme.getCircleColor());
     }
 
     @Override

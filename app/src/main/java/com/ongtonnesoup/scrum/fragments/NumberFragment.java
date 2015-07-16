@@ -20,19 +20,18 @@ import butterknife.InjectView;
 public class NumberFragment extends Fragment {
 
     private static final String KEY_ESTIMATE = "KEY_Estimate";
-    private static final String KEY_THEME = "KEY_Theme";
+    private static final String KEY_COLOR_ID = "KEY_Color_Id";
 
     @InjectView(R.id.circle_view)
     protected CircleView mCircleView;
     @Inject
     protected NumberModel mNumberModel;
-    protected ColourTheme mColourTheme;
 
-    public static NumberFragment newInstance(String estimate, ColourTheme colourTheme) {
+    public static NumberFragment newInstance(String estimate, int colorId) {
         NumberFragment fragment = new NumberFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ESTIMATE, estimate);
-        bundle.putParcelable(KEY_THEME, colourTheme);
+        bundle.putInt(KEY_COLOR_ID, colorId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,9 +55,9 @@ public class NumberFragment extends Fragment {
                 String estimate = arguments.getString(KEY_ESTIMATE);
                 setEstimate(estimate);
             }
-            if (arguments.containsKey(KEY_THEME)) {
-                mColourTheme = arguments.getParcelable(KEY_THEME);
-                setColor(mColourTheme.getCircleColor());
+            if (arguments.containsKey(KEY_COLOR_ID)) {
+                int colorId = arguments.getInt(KEY_COLOR_ID);
+                setColor(colorId);
             }
         } else {
             setEstimate(mNumberModel.getInitialValue());
