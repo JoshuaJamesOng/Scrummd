@@ -16,6 +16,7 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.models.NumberModel;
 import com.ongtonnesoup.scrum.views.adapters.NumberAdapter;
+import com.squareup.otto.Produce;
 
 import javax.inject.Inject;
 
@@ -23,11 +24,12 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     private static String KEY_Y_POS = "KEY_Y_Pos";
     private static String KEY_TEXT_COLOR = "KEY_Text_Color";
+
     @Inject
-    NumberModel mNumberModel;
-    private GridView mGridview;
-    private NumberAdapter mAdapter;
-    private int mTextColor;
+    protected NumberModel mNumberModel;
+    protected GridView mGridview;
+    protected NumberAdapter mAdapter;
+    protected int mTextColor;
 
     public static PopupFragment newInstance(int y, int color) {
         PopupFragment fragment = new PopupFragment();
@@ -85,7 +87,8 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ScrummdApplication.post(EstimateSelected.Factory.createEvent(mNumberModel.getValues()[position]));
+        String selectedEstimate = NumberModel.getValues()[position];
+        ScrummdApplication.post(new EstimateSelected(selectedEstimate));
         dismiss();
     }
 
@@ -102,11 +105,12 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     private void setPosition(int y) {
         Window window = getDialog().getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-        wlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        wlp.y = y;
-        window.setAttributes(wlp);
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        layoutParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.y = y;
+        window.setAttributes(layoutParams);
     }
+
 }
