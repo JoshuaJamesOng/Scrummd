@@ -6,8 +6,6 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 
-import java.util.Random;
-
 import javax.inject.Inject;
 
 public class ColourThemeManager {

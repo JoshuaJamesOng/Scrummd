@@ -52,7 +52,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         getDialog().setCanceledOnTouchOutside(true);
 
-        View view = inflater.inflate(R.layout.fragment_settings, null);
+        View view = inflater.inflate(R.layout.fragment_settings, container);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -106,7 +106,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.END;
         layoutParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.y = y;
         window.setAttributes(layoutParams);

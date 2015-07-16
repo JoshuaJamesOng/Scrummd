@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,7 +22,7 @@ import com.squareup.otto.Subscribe;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @InjectView(R.id.add_button)
     FloatingActionButton mAddButton;
@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         });
 
         mPager = (ViewPager) findViewById(R.id.fragment_container);
-        mPager.setOnPageChangeListener(this);
+        mPager.addOnPageChangeListener (this);
         mPagerAdapter = new NumberFragmentPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
@@ -101,7 +101,7 @@ public class MainActivity extends ActionBarActivity implements ViewPager.OnPageC
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
         } else {
-            return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight());
+            return mAddButton.getPaddingBottom() + mAddButton.getHeight();
         }
     }
 

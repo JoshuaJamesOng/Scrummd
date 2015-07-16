@@ -6,10 +6,6 @@ public class ColourTheme {
     private int mSecondaryColor;
     private int mAccentColor;
 
-    public ColourTheme() {
-
-    }
-
     public void setPrimary(int value) {
         mPrimaryColor = value;
     }
