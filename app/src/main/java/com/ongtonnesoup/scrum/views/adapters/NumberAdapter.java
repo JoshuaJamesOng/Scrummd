@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.NumberModel;
 
 import javax.inject.Inject;
@@ -18,18 +16,19 @@ import javax.inject.Inject;
 public class NumberAdapter extends BaseAdapter {
 
     @Inject
-    Context mContext;
-    private final String[] mNumbers;
+    protected Context mContext;
+    @Inject
+    protected NumberModel mNumberModel;
+
     private int mColor;
 
-    public NumberAdapter(NumberModel numberModel, int textColorId) {
+    public NumberAdapter(int textColorId) {
         ScrummdApplication.inject(this);
-        mNumbers = NumberModel.getValues();
         mColor = textColorId;
     }
 
     public int getCount() {
-        return mNumbers.length;
+        return mNumberModel.getNumbers().length;
     }
 
     public Object getItem(int position) {
@@ -49,7 +48,7 @@ public class NumberAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.grid_item, null);
 
             viewHolder = new NumberHolder();
-            viewHolder.textView = (CircleView) convertView.findViewById(R.id.grid_item_text);
+            viewHolder.circleView = (CircleView) convertView.findViewById(R.id.grid_item_text);
 
             convertView.setTag(viewHolder);
 
@@ -57,13 +56,13 @@ public class NumberAdapter extends BaseAdapter {
             viewHolder = (NumberHolder) convertView.getTag();
         }
 
-        viewHolder.textView.setTitleText(mNumbers[position]);
-        viewHolder.textView.setFillColor(mColor);
-        viewHolder.textView.setStrokeColor(mColor);
+        viewHolder.circleView.setTitleText(mNumberModel.getNumbers()[position]);
+        viewHolder.circleView.setFillColor(mColor);
+        viewHolder.circleView.setStrokeColor(mColor);
         return convertView;
     }
 
     class NumberHolder {
-        CircleView textView;
+        CircleView circleView;
     }
 }

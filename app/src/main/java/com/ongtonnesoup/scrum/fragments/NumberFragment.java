@@ -12,6 +12,8 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.NumberModel;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -22,6 +24,8 @@ public class NumberFragment extends Fragment {
 
     @InjectView(R.id.circle_view)
     protected CircleView mCircleView;
+    @Inject
+    protected NumberModel mNumberModel;
     protected ColourTheme mColourTheme;
 
     public static NumberFragment newInstance(String estimate, ColourTheme colourTheme) {
@@ -57,7 +61,7 @@ public class NumberFragment extends Fragment {
                 setColor(mColourTheme.getCircleColor());
             }
         } else {
-            setEstimate(NumberModel.INITIAL);
+            setEstimate(mNumberModel.getInitialValue());
         }
 
         return view;

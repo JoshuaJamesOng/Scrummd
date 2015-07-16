@@ -65,7 +65,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         }
 
         mGridview = (GridView) view.findViewById(R.id.number_selection_gridview);
-        mAdapter = new NumberAdapter(mNumberModel, mTextColor);
+        mAdapter = new NumberAdapter(mTextColor);
         mGridview.setAdapter(mAdapter);
         mGridview.setOnItemClickListener(this);
 
@@ -97,7 +97,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedEstimate = NumberModel.getValues()[position];
+        String selectedEstimate = mNumberModel.getNumbers()[position];
         ScrummdApplication.post(new EstimateSelected(selectedEstimate));
         dismiss();
     }

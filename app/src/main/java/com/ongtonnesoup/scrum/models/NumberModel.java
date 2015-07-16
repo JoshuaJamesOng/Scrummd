@@ -2,11 +2,23 @@ package com.ongtonnesoup.scrum.models;
 
 public class NumberModel {
 
-    private static final String[] numbers = {"1", "2", "3", "5", "8", "13", "20", "40", "100"};
-    public static final String INITIAL = numbers[0];
+    private String[] mNumbers;
+    private String mInitialValue;
 
-    public static String[] getValues() {
-        return numbers;
+    public String[] getNumbers() {
+        return mNumbers;
+    }
+
+    public String getInitialValue() {
+        return mInitialValue;
+    }
+
+    protected void setNumbers(String[] values) {
+        mNumbers = values;
+    }
+
+    protected void setInitialValue(int index) {
+        mInitialValue = mNumbers[index];
     }
 
 }

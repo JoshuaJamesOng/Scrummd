@@ -15,30 +15,30 @@ import javax.inject.Inject;
 public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Inject
-    ColourThemeManager mColourThemeManager;
-    private String[] values;
+    protected ColourThemeManager mColourThemeManager;
+    @Inject
+    protected NumberModel mNumberModel;
 
     public NumberFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         ScrummdApplication.inject(this);
-        values = NumberModel.getValues();
     }
 
     @Override
     public Fragment getItem(int i) {
-        String number = values[i];
+        String number = mNumberModel.getNumbers()[i];
         ColourTheme theme = mColourThemeManager.generateNewColourTheme(i);
         return NumberFragment.newInstance(number, theme);
     }
 
     @Override
     public int getCount() {
-        return values.length;
+        return mNumberModel.getNumbers().length;
     }
 
     public int getIndex(String value) {
-        for (int i = 0; i < values.length; i++) {
-            if (values[i].equalsIgnoreCase(value)) {
+        for (int i = 0; i < mNumberModel.getNumbers().length; i++) {
+            if (mNumberModel.getNumbers()[i].equalsIgnoreCase(value)) {
                 return i;
             }
         }
