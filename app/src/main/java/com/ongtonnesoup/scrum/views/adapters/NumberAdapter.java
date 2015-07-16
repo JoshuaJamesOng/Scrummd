@@ -22,13 +22,10 @@ public class NumberAdapter extends BaseAdapter {
     private final String[] mNumbers;
     private int mColor;
 
-    public NumberAdapter(NumberModel numberModel) {
+    public NumberAdapter(NumberModel numberModel, int textColorId) {
         ScrummdApplication.inject(this);
-        mNumbers = numberModel.getValues();
-    }
-
-    public void setTextColor(int c) {
-        mColor = c;
+        mNumbers = NumberModel.getValues();
+        mColor = textColorId;
     }
 
     public int getCount() {

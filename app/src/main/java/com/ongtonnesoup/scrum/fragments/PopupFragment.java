@@ -16,7 +16,6 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.models.NumberModel;
 import com.ongtonnesoup.scrum.views.adapters.NumberAdapter;
-import com.squareup.otto.Produce;
 
 import javax.inject.Inject;
 
@@ -47,38 +46,26 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        ScrummdApplication.register(this);
-    }
-
-    @Override
-    public void onPause() {
-        ScrummdApplication.unregister(this);
-        super.onPause();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getDialog().setCanceledOnTouchOutside(true);
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        getDialog().setCanceledOnTouchOutside(true);
 
         View view = inflater.inflate(R.layout.fragment_settings, null);
 
-        if (getArguments() != null) {
-            if (getArguments().containsKey(KEY_Y_POS)) {
-                setPosition(getArguments().getInt(KEY_Y_POS));
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            if (arguments.containsKey(KEY_Y_POS)) {
+                setPosition(arguments.getInt(KEY_Y_POS));
             }
-            if (getArguments().containsKey(KEY_TEXT_COLOR)) {
-                mTextColor = getArguments().getInt(KEY_TEXT_COLOR);
+            if (arguments.containsKey(KEY_TEXT_COLOR)) {
+                mTextColor = arguments.getInt(KEY_TEXT_COLOR);
             }
         }
 
         mGridview = (GridView) view.findViewById(R.id.number_selection_gridview);
-        mAdapter = new NumberAdapter(mNumberModel);
-        mAdapter.setTextColor(mTextColor);
+        mAdapter = new NumberAdapter(mNumberModel, mTextColor);
         mGridview.setAdapter(mAdapter);
         mGridview.setOnItemClickListener(this);
 
@@ -86,10 +73,9 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedEstimate = NumberModel.getValues()[position];
-        ScrummdApplication.post(new EstimateSelected(selectedEstimate));
-        dismiss();
+    public void onResume() {
+        super.onResume();
+        ScrummdApplication.register(this);
     }
 
     @Override
@@ -101,6 +87,19 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         windowParams.dimAmount = 0.0f;
         windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(windowParams);
+    }
+
+    @Override
+    public void onPause() {
+        ScrummdApplication.unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String selectedEstimate = NumberModel.getValues()[position];
+        ScrummdApplication.post(new EstimateSelected(selectedEstimate));
+        dismiss();
     }
 
     private void setPosition(int y) {
