@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.views.adapters;
+package com.ongtonnesoup.scrum.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

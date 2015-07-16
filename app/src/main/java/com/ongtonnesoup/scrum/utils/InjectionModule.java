@@ -10,8 +10,8 @@ import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
-import com.ongtonnesoup.scrum.views.adapters.NumberAdapter;
-import com.ongtonnesoup.scrum.views.adapters.NumberFragmentPagerAdapter;
+import com.ongtonnesoup.scrum.adapters.NumberAdapter;
+import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 
 import javax.inject.Singleton;
 

@@ -16,7 +16,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
-import com.ongtonnesoup.scrum.views.adapters.NumberFragmentPagerAdapter;
+import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;
@@ -25,14 +25,16 @@ import butterknife.InjectView;
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @InjectView(R.id.add_button)
-    FloatingActionButton mAddButton;
-    FragmentManager mFragmentManager;
+    protected FloatingActionButton mAddButton;
+    private FragmentManager mFragmentManager;
     private ColourThemeManager mColourThemeManager;
     private ViewPager mPager;
     private NumberFragmentPagerAdapter mPagerAdapter;
-    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    private final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     private Window mWindow;
     private int mPopupFragmentTextColor;
+    private int[] mSecondaryColors;
+    private int[] mAccentColors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +44,25 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         ScrummdApplication.inject(this);
         ButterKnife.inject(this);
 
-        mWindow = getWindow();
-
-        mColourThemeManager = new ColourThemeManager();
-
-        mFragmentManager = getSupportFragmentManager();
-
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = calculateFabPosition();
+                int position = getPopupButtonPosition();
                 PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
                 popupFragment.show(mFragmentManager, "YO");
             }
         });
 
+        mWindow = getWindow();
+
+        mColourThemeManager = new ColourThemeManager();
+        mFragmentManager = getSupportFragmentManager();
+
+        mSecondaryColors = mColourThemeManager.getBackgroundColors();
+        mAccentColors = mColourThemeManager.getStatusBarColors();
+
         mPager = (ViewPager) findViewById(R.id.fragment_container);
-        mPager.addOnPageChangeListener (this);
+        mPager.addOnPageChangeListener(this);
         mPagerAdapter = new NumberFragmentPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
@@ -83,43 +87,18 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onPause();
     }
 
-    @Subscribe
-    public void onEstimateChanged(EstimateSelected event) {
-        int index = mPagerAdapter.getIndex(event.getNumber());
-        mPager.setCurrentItem(index);
-    }
-
-    private void updateStatusBar(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mWindow.setStatusBarColor(color);
-        }
-    }
-
-    private int calculateFabPosition() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
-        } else {
-            return mAddButton.getPaddingBottom() + mAddButton.getHeight();
-        }
-    }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        int[] background = mColourThemeManager.getBackgroundColors();
-        int[] status = mColourThemeManager.getStatusBarColors();
-        int[] fill = mColourThemeManager.getBackgroundColors();
-        if (position < (mPagerAdapter.getCount() - 1) && position < (background.length - 1)) {
-            mPager.setBackgroundColor((Integer) argbEvaluator.evaluate(positionOffset, background[position], background[position + 1]));
-            updateStatusBar((Integer) argbEvaluator.evaluate(positionOffset, status[position], status[position + 1]));
-            mPopupFragmentTextColor = ((Integer) argbEvaluator.evaluate(positionOffset, fill[position], fill[position + 1]));
-            mAddButton.setColorFilter((Integer) argbEvaluator.evaluate(positionOffset, status[position], status[position + 1]));
+        if (position < (mPagerAdapter.getCount() - 1) && position < (mSecondaryColors.length - 1)) {
+            setBackgroundColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[position + 1]));
+            setStatusBarColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[position + 1]));
+            setPopupEstimateCircleColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[position + 1]));
+            setPopupButtonIconColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[position + 1]));
         } else {
-            mPager.setBackgroundColor(background[background.length - 1]);
-            updateStatusBar(status[status.length - 1]);
-            mPopupFragmentTextColor = (fill[fill.length - 1]);
-            mAddButton.setColorFilter(status[status.length - 1]);
+            setBackgroundColor(mSecondaryColors[mSecondaryColors.length - 1]);
+            setStatusBarColor(mAccentColors[mAccentColors.length - 1]);
+            setPopupEstimateCircleColor(mSecondaryColors[mSecondaryColors.length - 1]);
+            setPopupButtonIconColor(mAccentColors[mAccentColors.length - 1]);
         }
 
     }
@@ -131,6 +110,44 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Subscribe
+    public void onEstimateChanged(EstimateSelected event) {
+        int index = mPagerAdapter.getIndex(event.getNumber());
+        mPager.setCurrentItem(index);
+    }
+
+    private void setBackgroundColor(int color) {
+        mPager.setBackgroundColor(color);
+    }
+
+    private void setPopupButtonIconColor(int color) {
+        mAddButton.setColorFilter(color);
+    }
+
+    private void setPopupEstimateCircleColor(int color) {
+        mPopupFragmentTextColor = (color);
+    }
+
+    private void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            mWindow.setStatusBarColor(color);
+        }
+    }
+
+    private int calculateColor(float positionOffset, int start, int end) {
+        return (Integer) argbEvaluator.evaluate(positionOffset, start, end);
+    }
+
+    private int getPopupButtonPosition() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return (int) (mAddButton.getPaddingBottom() + mAddButton.getHeight() + mAddButton.getY());
+        } else {
+            return mAddButton.getPaddingBottom() + mAddButton.getHeight();
+        }
     }
 
 }
