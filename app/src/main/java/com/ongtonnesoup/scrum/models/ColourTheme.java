@@ -1,8 +1,5 @@
 package com.ongtonnesoup.scrum.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class ColourTheme {
 
     private int mPrimaryColor;
@@ -11,14 +8,6 @@ public class ColourTheme {
 
     public ColourTheme() {
 
-    }
-
-    public ColourTheme(Parcel in) {
-        int[] data = new int[4];
-        in.readIntArray(data);
-        this.mPrimaryColor = data[0];
-        this.mSecondaryColor = data[1];
-        this.mAccentColor = data[2];
     }
 
     public void setPrimary(int value) {
