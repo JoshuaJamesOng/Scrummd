@@ -1,6 +1,6 @@
-package com.ongtonnesoup.scrum.models;
+package com.ongtonnesoup.scrum.models.numbers;
 
-public class NumberModel {
+public abstract class NumberModel {
 
     private String[] mNumbers;
     private String mInitialValue;

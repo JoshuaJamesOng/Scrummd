@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.ColourTheme;
-import com.ongtonnesoup.scrum.models.NumberModel;
+import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
 

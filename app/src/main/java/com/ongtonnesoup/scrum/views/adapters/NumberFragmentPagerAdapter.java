@@ -8,7 +8,7 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
-import com.ongtonnesoup.scrum.models.NumberModel;
+import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
 

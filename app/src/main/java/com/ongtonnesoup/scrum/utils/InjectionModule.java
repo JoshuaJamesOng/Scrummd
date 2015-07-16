@@ -8,8 +8,8 @@ import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
-import com.ongtonnesoup.scrum.models.NumberModel;
-import com.ongtonnesoup.scrum.models.ScrumNumberModel;
+import com.ongtonnesoup.scrum.models.numbers.NumberModel;
+import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
 import com.ongtonnesoup.scrum.views.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.views.adapters.NumberFragmentPagerAdapter;
 

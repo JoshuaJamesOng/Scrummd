@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.models;
+package com.ongtonnesoup.scrum.models.numbers;
 
 public class ScrumNumberModel extends NumberModel {
 
