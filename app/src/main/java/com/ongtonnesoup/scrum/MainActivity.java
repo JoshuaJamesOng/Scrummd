@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
+import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 int position = getPopupButtonPosition();
                 PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
                 popupFragment.show(mFragmentManager, "YO");
+                setPopupButtonIcon(true);
             }
         });
 
@@ -116,6 +118,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onEstimateChanged(EstimateSelected event) {
         int index = mPagerAdapter.getIndex(event.getNumber());
         mPager.setCurrentItem(index);
+    }
+
+    @Subscribe
+    public void onPopupClosed(PopupClosed event) {
+        setPopupButtonIcon(false);
+    }
+
+    private void setPopupButtonIcon(boolean popupOpen) {
+        if (popupOpen) {
+            mAddButton.setImageResource(R.drawable.ic_check);
+        } else {
+            mAddButton.setImageResource(R.drawable.ic_dots_vertical);
+        }
     }
 
     private void setBackgroundColor(int color) {

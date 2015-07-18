@@ -1,5 +1,6 @@
 package com.ongtonnesoup.scrum.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import android.widget.GridView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
+import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 
@@ -96,6 +98,12 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     }
 
     @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ScrummdApplication.post(new PopupClosed());
+    }
+
+    @Override
     public void onPause() {
         ScrummdApplication.unregister(this);
         super.onPause();
@@ -105,6 +113,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedEstimate = mNumberModel.getNumbers()[position];
         ScrummdApplication.post(new EstimateSelected(selectedEstimate));
+        ScrummdApplication.post(new PopupClosed());
         dismiss();
     }
 
