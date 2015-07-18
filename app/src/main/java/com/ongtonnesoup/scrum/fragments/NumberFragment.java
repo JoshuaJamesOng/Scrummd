@@ -1,10 +1,13 @@
 package com.ongtonnesoup.scrum.fragments;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
@@ -20,11 +23,18 @@ public class NumberFragment extends Fragment {
 
     private static final String KEY_ESTIMATE = "KEY_Estimate";
     private static final String KEY_COLOR_ID = "KEY_Color_Id";
+    private static final String RESOURCE_IDENTIFIER = "R.drawable.";
 
     @InjectView(R.id.circle_view)
     protected CircleView mCircleView;
+    @InjectView(R.id.image_view)
+    protected ImageView mImageView;
     @Inject
     protected NumberModel mNumberModel;
+    @Inject
+    protected Context mContext;
+    @Inject
+    protected Resources mResources;
 
     public static NumberFragment newInstance(String estimate, int colorId) {
         NumberFragment fragment = new NumberFragment();
@@ -52,7 +62,13 @@ public class NumberFragment extends Fragment {
         if (arguments != null) {
             if (arguments.containsKey(KEY_ESTIMATE)) {
                 String estimate = arguments.getString(KEY_ESTIMATE);
-                setEstimate(estimate);
+
+                if (estimate.contains(RESOURCE_IDENTIFIER)) {
+                    int id = getDrawable(estimate);
+                    setIcon(id);
+                } else {
+                    setEstimate(estimate);
+                }
             }
             if (arguments.containsKey(KEY_COLOR_ID)) {
                 int colorId = arguments.getInt(KEY_COLOR_ID);
@@ -63,6 +79,18 @@ public class NumberFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private int getDrawable(String estimate) {
+        String resourceName = estimate.substring(RESOURCE_IDENTIFIER.length());
+
+        int id = mResources.getIdentifier(resourceName, "drawable", mContext.getPackageName());
+
+        if (id == 0) {
+            setEstimate("Error");
+        }
+
+        return id;
     }
 
     @Override
@@ -79,6 +107,13 @@ public class NumberFragment extends Fragment {
 
     private void setEstimate(String number) {
         mCircleView.setTitleText(number);
+        mImageView.setVisibility(View.INVISIBLE);
+    }
+
+    private void setIcon(int resourceId) {
+        mImageView.setBackgroundResource(resourceId);
+        mImageView.setVisibility(View.VISIBLE);
+        mCircleView.setTitleText("");
     }
 
     private void setColor(int color) {

@@ -6,13 +6,15 @@
 
     <com.github.pavlospt.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/circle_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
+        style="@style/EstimateNumber"
         app:fillRadius="1.0"
         app:subtitleText=""
         app:titleColor="@color/white"
         app:titleSize="144dp" />
 
+    <ImageView
+        android:id="@+id/image_view"
+        style="@style/EstimateIcon"
+        android:visibility="invisible" />
 
 </FrameLayout>

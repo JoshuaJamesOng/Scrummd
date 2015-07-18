@@ -10,4 +10,16 @@
         <item name="android:windowExitAnimation">@anim/abc_shrink_fade_out_from_bottom</item>
     </style>
 
+    <style name="EstimateIcon">
+        <item name="android:layout_width">@dimen/estimate_icon_size</item>
+        <item name="android:layout_height">@dimen/estimate_icon_size</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="EstimateNumber">
+        <item name="android:layout_width">@dimen/estimate_number_circumference</item>
+        <item name="android:layout_height">@dimen/estimate_number_circumference</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>

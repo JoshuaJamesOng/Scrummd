@@ -11,4 +11,8 @@
     <dimen name="elevation_high">4dp</dimen>
 
     <dimen name="grid_item_number_text">56sp</dimen>
+
+    <dimen name="estimate_number_circumference">300dp</dimen>
+    <dimen name="estimate_option_circumference">300dp</dimen>
+    <dimen name="estimate_icon_size">100dp</dimen>
 </resources>
