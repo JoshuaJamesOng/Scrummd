@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -68,6 +70,10 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         mAdapter = new NumberAdapter(mTextColor);
         mGridview.setAdapter(mAdapter);
         mGridview.setOnItemClickListener(this);
+
+        Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom);
+        mGridview.setAnimation(anim);
+        anim.start();
 
         return view;
     }
