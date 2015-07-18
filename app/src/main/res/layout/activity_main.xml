@@ -28,7 +28,7 @@
             app:borderWidth="0dp"
             app:fabSize="normal"
             app:backgroundTint="@color/white"
-            app:rippleColor="@color/red100"/>
+            app:rippleColor="@color/grey100"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
