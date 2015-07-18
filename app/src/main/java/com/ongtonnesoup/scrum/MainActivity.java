@@ -91,18 +91,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (position < (mPagerAdapter.getCount() - 1) && position < (mSecondaryColors.length - 1)) {
-            setBackgroundColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[position + 1]));
-            setStatusBarColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[position + 1]));
-            setPopupEstimateCircleColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[position + 1]));
-            setPopupButtonIconColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[position + 1]));
-        } else {
-            setBackgroundColor(mSecondaryColors[mSecondaryColors.length - 1]);
-            setStatusBarColor(mAccentColors[mAccentColors.length - 1]);
-            setPopupEstimateCircleColor(mSecondaryColors[mSecondaryColors.length - 1]);
-            setPopupButtonIconColor(mAccentColors[mAccentColors.length - 1]);
-        }
+        int targetPosition = position + 1;
+        position = mColourThemeManager.getColorForIndex(position);
+        targetPosition = mColourThemeManager.getColorForIndex(targetPosition);
 
+        setBackgroundColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[targetPosition]));
+        setStatusBarColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[targetPosition]));
+        setPopupEstimateCircleColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[targetPosition]));
+        setPopupButtonIconColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[targetPosition]));
     }
 
     @Override

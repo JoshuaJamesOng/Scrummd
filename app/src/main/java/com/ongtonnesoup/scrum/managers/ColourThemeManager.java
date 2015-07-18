@@ -43,4 +43,16 @@ public class ColourThemeManager {
         return theme;
     }
 
+    public int getColorForIndex(int i) {
+        int index;
+        if (i < mBackgroundColors.length) {
+            index = i;
+        } else {
+            do {
+                index = i - mBackgroundColors.length;
+            }
+            while (index >= mBackgroundColors.length);
+        }
+        return index;
+    }
 }
