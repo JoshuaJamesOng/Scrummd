@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
@@ -19,6 +21,8 @@ public class NumberAdapter extends BaseAdapter {
     protected Context mContext;
     @Inject
     protected NumberModel mNumberModel;
+    @Inject
+    protected NumberModelDecorator mNumberModelDecorator;
 
     private int mColor;
 
@@ -49,14 +53,24 @@ public class NumberAdapter extends BaseAdapter {
 
             viewHolder = new NumberHolder();
             viewHolder.circleView = (CircleView) convertView.findViewById(R.id.grid_item_text);
-
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
             convertView.setTag(viewHolder);
 
         } else {
             viewHolder = (NumberHolder) convertView.getTag();
         }
 
-        viewHolder.circleView.setTitleText(mNumberModel.getNumbers()[position]);
+        String estimate = mNumberModelDecorator.getNumber(position);
+        int resourceId = mNumberModelDecorator.getResourceIdentifier(position);
+
+        if (estimate != null) {
+            viewHolder.circleView.setTitleText(mNumberModel.getNumbers()[position]);
+            viewHolder.imageView.setVisibility(View.GONE);
+        } else {
+            viewHolder.circleView.setTitleText("");
+            viewHolder.imageView.setImageResource(resourceId);
+            viewHolder.imageView.setVisibility(View.VISIBLE);
+        }
         viewHolder.circleView.setFillColor(mColor);
         viewHolder.circleView.setStrokeColor(mColor);
         return convertView;
@@ -64,5 +78,6 @@ public class NumberAdapter extends BaseAdapter {
 
     class NumberHolder {
         CircleView circleView;
+        ImageView imageView;
     }
 }
