@@ -20,6 +20,14 @@ public class ResourceManager {
         mResources = resources;
     }
 
+    public int getPrimaryTextColor() {
+        return mResources.getColor(R.color.black);
+    }
+
+    public int getSecondaryTextColor() {
+        return mResources.getColor(R.color.grey);
+    }
+
     public int[] getBackgroundColors() {
         return getColorArray(R.array.background_colors);
     }
@@ -35,7 +43,6 @@ public class ResourceManager {
     private int[] getColorArray(int id) {
         return mResources.getIntArray(id);
     }
-
     public int findResourceIdentifier(String resourceName) {
         return mResources.getIdentifier(resourceName, "drawable", mContext.getPackageName());
     }

@@ -2,8 +2,13 @@ package com.ongtonnesoup.scrum.models.numbers;
 
 public abstract class NumberModel {
 
+    protected String mName;
     private String[] mNumbers;
     private String mInitialValue;
+
+    public String getName() {
+        return mName;
+    }
 
     public String[] getNumbers() {
         return mNumbers;

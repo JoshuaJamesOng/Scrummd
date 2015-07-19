@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -139,9 +141,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
     private void showSettings() {
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.rootLayout, new SettingsFragment()).addToBackStack("Settings");
-        transaction.commit();
+        DialogFragment fragment = SettingsFragment.newInstance(mPopupFragmentTextColor);
+        fragment.show(mFragmentManager, "Settings");
     }
 
     private void setPopupButtonIcon(boolean popupOpen) {

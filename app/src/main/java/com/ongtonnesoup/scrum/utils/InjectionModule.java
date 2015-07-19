@@ -6,8 +6,10 @@ import android.content.res.Resources;
 import com.ongtonnesoup.scrum.MainActivity;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
+import com.ongtonnesoup.scrum.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
@@ -24,6 +26,7 @@ import dagger.Provides;
         MainActivity.class,
         NumberFragment.class,
         PopupFragment.class,
+        SettingsFragment.class,
         NumberAdapter.class,
         NumberFragmentPagerAdapter.class,
         ResourceManager.class,
@@ -65,6 +68,12 @@ public class InjectionModule {
     @Singleton
     public ColourThemeManager provideColourThemeManager() {
         return new ColourThemeManager();
+    }
+
+    @Provides
+    @Singleton
+    public NumberModelManager providNumberModelManager() {
+        return new NumberModelManager();
     }
 
     @Provides
