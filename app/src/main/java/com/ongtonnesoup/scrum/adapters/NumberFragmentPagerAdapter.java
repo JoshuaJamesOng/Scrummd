@@ -48,6 +48,11 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
         return mNumberModelManager.getCurrentModel().getNumbers().length;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     public int getIndex(String value) {
         for (int i = 0; i < mNumberModelManager.getCurrentModel().getNumbers().length; i++) {
             if (mNumberModelManager.getCurrentModel().getNumbers()[i].equalsIgnoreCase(value)) {
