@@ -28,4 +28,13 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="Settings">
+        <item name="android:layout_width">@dimen/settings_icon_size</item>
+        <item name="android:layout_height">@dimen/settings_icon_size</item>
+        <item name="android:layout_gravity">top|end</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:alpha">0.2</item>
+    </style>
+
 </resources>

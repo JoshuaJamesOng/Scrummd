@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @InjectView(R.id.add_button)
     protected FloatingActionButton mAddButton;
+    @InjectView(R.id.settings)
+    protected ImageView mSettingsView;
+
     private FragmentManager mFragmentManager;
     private ColourThemeManager mColourThemeManager;
     private ViewPager mPager;

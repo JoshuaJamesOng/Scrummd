@@ -16,4 +16,6 @@
     <dimen name="estimate_option_circumference">300dp</dimen>
     <dimen name="estimate_icon_size">100dp</dimen>
     <dimen name="estimate_small_icon_size">16dp</dimen>
+
+    <dimen name="settings_icon_size">32dp</dimen>
 </resources>
