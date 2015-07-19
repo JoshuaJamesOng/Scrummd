@@ -1,21 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="72dp"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="@dimen/float_margin"
-             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-             android:layout_marginRight="@dimen/activity_horizontal_margin"
-             android:layout_marginTop="@dimen/activity_vertical_margin"
-             android:background="@drawable/rounded_corners"
-             android:elevation="@dimen/elevation_high"
-             android:padding="@dimen/activity_horizontal_margin"
-             tools:context="com.ongtonnesoup.scrum.fragments.PopupFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="72dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/float_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/rounded_corners"
+    android:elevation="@dimen/elevation_high"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context="com.ongtonnesoup.scrum.fragments.PopupFragment">
 
-    <GridView android:id="@+id/number_selection_gridview"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="72dp"
-              android:layout_height="wrap_content"
-              android:numColumns="1"
-              android:verticalSpacing="@dimen/activity_vertical_margin"/>
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/number_selection_gridview"
+        android:layout_width="72dp"
+        android:layout_height="400dp"
+        android:horizontalSpacing="8dp"
+        android:numColumns="1"
+        android:verticalSpacing="@dimen/activity_vertical_margin" />
+
 
 </FrameLayout>
