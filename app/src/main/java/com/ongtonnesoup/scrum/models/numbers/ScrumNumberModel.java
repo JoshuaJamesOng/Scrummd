@@ -4,7 +4,7 @@ public class ScrumNumberModel extends NumberModel {
 
     public ScrumNumberModel() {
         mName = "Scrum";
-        setNumbers(new String[]{"1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "R.drawable.ic_coffee"});
+        setNumbers(new String[]{"0", "0.5", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "R.drawable.ic_coffee"});
         setInitialValue(0);
     }
 }
