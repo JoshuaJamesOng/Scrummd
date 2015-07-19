@@ -9,7 +9,7 @@ public class PopupButtonAnimation extends RotateAnimation {
     private static final int END_ANGLE = 50;
     private static final int DURATION = 350;
 
-    private FloatingActionButton mButton;
+    private final FloatingActionButton mButton;
 
     public PopupButtonAnimation(FloatingActionButton button) {
         super(START_ANGLE, END_ANGLE, button.getWidth() / 2, button.getHeight() / 2);

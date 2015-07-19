@@ -24,7 +24,7 @@ public class NumberAdapter extends BaseAdapter {
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
 
-    private int mColor;
+    private final int mColor;
 
     public NumberAdapter(int textColorId) {
         ScrummdApplication.inject(this);

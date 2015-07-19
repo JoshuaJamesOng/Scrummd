@@ -25,8 +25,8 @@ import javax.inject.Inject;
 
 public class PopupFragment extends DialogFragment implements AdapterView.OnItemClickListener {
 
-    private static String KEY_Y_POS = "KEY_Y_Pos";
-    private static String KEY_TEXT_COLOR = "KEY_Text_Color";
+    private static final String KEY_Y_POS = "KEY_Y_Pos";
+    private static final String KEY_TEXT_COLOR = "KEY_Text_Color";
 
     @Inject
     protected NumberModelManager mNumberModelManager;

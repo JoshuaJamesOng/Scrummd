@@ -32,7 +32,7 @@ import dagger.Provides;
         library = true, complete = true)
 public class InjectionModule {
 
-    private Context mContext;
+    private final Context mContext;
 
     public InjectionModule(Context context) {
         mContext = context;
