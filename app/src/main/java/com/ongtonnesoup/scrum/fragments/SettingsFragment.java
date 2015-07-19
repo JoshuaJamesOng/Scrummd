@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
@@ -84,6 +85,18 @@ public class SettingsFragment extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ScrummdApplication.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        ScrummdApplication.unregister(this);
+        super.onPause();
+    }
+
     private int createModelRadioOptions() {
         List<String> names = mNumberModelManager.getModelNames();
 
@@ -107,7 +120,9 @@ public class SettingsFragment extends DialogFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    mNumberModelManager.setCurrentModel("" + buttonView.getText());
+                    if (mNumberModelManager.setCurrentModel("" + buttonView.getText())) {
+                        ScrummdApplication.post(new ModelChanged());
+                    }
                 }
             }
         });

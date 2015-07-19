@@ -22,6 +22,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
+import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.fragments.SettingsFragment;
@@ -138,6 +139,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Subscribe
     public void onPopupClosed(PopupClosed event) {
         setPopupButtonIcon(false);
+    }
+
+    @Subscribe
+    public void onModelChanged(ModelChanged event) {
     }
 
     private void showSettings() {

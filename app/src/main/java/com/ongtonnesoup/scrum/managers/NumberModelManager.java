@@ -26,8 +26,11 @@ public class NumberModelManager {
         boolean modelChanged = false;
         for (NumberModel model : mModels) {
             if (model.getName().equalsIgnoreCase(modelName)) {
+                if (model != mCurrentModel) {
+                    modelChanged = true;
+                }
+
                 mCurrentModel = model;
-                modelChanged = true;
             }
         }
         return modelChanged;
