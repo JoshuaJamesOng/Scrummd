@@ -56,7 +56,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         getDialog().setCanceledOnTouchOutside(true);
 
-        View view = inflater.inflate(R.layout.fragment_settings, container);
+        View view = inflater.inflate(R.layout.fragment_popup, container);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
