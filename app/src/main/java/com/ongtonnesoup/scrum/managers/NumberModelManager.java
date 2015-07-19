@@ -22,8 +22,15 @@ public class NumberModelManager {
         return mCurrentModel;
     }
 
-    public void setCurrentModel(NumberModel model) {
-        mCurrentModel = model;
+    public boolean setCurrentModel(String modelName) {
+        boolean modelChanged = false;
+        for (NumberModel model : mModels) {
+            if (model.getName().equalsIgnoreCase(modelName)) {
+                mCurrentModel = model;
+                modelChanged = true;
+            }
+        }
+        return modelChanged;
     }
 
     public List<String> getModelNames() {

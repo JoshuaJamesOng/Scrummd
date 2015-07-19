@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -102,6 +103,14 @@ public class SettingsFragment extends DialogFragment {
         RadioButton button = new RadioButton(mContext);
         button.setText(title.toUpperCase());
         button.setTextColor(mResources.getPrimaryTextColor());
+        button.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mNumberModelManager.setCurrentModel("" + buttonView.getText());
+                }
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             button.setButtonTintList(ColorStateList.valueOf(mThemeColor));
         }
