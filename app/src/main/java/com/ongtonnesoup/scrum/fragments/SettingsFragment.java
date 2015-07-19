@@ -1,6 +1,5 @@
 package com.ongtonnesoup.scrum.fragments;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -21,7 +20,6 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import java.util.List;
 
