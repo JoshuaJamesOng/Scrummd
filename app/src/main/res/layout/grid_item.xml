@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="48dp"
-    android:layout_height="48dp">
+    android:layout_width="@dimen/popup_estimate_size"
+    android:layout_height="@dimen/popup_estimate_size">
 
     <com.github.pavlospt.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/grid_item_text"
@@ -9,7 +9,7 @@
         app:fillRadius="1.0"
         app:subtitleText=""
         app:titleColor="@color/white"
-        app:titleSize="16dp" />
+        app:titleSize="@dimen/popup_text_size" />
 
     <ImageView
         android:id="@+id/image_view"

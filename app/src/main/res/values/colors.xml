@@ -5,7 +5,6 @@
     <item name="white" type="color">#FFFFFF</item>
     <item name="grey" type="color">#aaa</item>
 
-    <item name="grey50" type="color">#ECEFF1</item>
     <item name="grey100" type="color">#CFD8DC</item>
 
     <item name="red100" type="color">#FF8A80</item>

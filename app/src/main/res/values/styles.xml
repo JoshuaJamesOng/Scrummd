@@ -17,8 +17,8 @@
     </style>
 
     <style name="EstimateSmallIcon">
-        <item name="android:layout_width">@dimen/estimate_small_icon_size</item>
-        <item name="android:layout_height">@dimen/estimate_small_icon_size</item>
+        <item name="android:layout_width">@dimen/popup_estimate_icon_size</item>
+        <item name="android:layout_height">@dimen/popup_estimate_icon_size</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
@@ -28,7 +28,7 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
-    <style name="Settings">
+    <style name="SettingsIcon">
         <item name="android:layout_width">@dimen/settings_icon_size</item>
         <item name="android:layout_height">@dimen/settings_icon_size</item>
         <item name="android:layout_gravity">top|end</item>

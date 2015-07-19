@@ -18,11 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
             android:elevation="@dimen/elevation_high"
             android:src="@drawable/ic_dots_vertical"
+            android:contentDescription="@string/add_button"
             app:backgroundTint="@color/white"
             app:borderWidth="0dp"
             app:fabSize="normal"
@@ -31,8 +32,8 @@
 
         <ImageView
             android:id="@+id/settings"
-            style="@style/Settings"
-            android:contentDescription="Settings"
+            style="@style/SettingsIcon"
+            android:contentDescription="@string/settings"
             android:src="@drawable/ic_settings" />
 
     </android.support.design.widget.CoordinatorLayout>

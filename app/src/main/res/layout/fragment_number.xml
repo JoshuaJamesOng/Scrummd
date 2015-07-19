@@ -10,7 +10,7 @@
         app:fillRadius="1.0"
         app:subtitleText=""
         app:titleColor="@color/white"
-        app:titleSize="144dp" />
+        app:titleSize="@dimen/estimate_text_size" />
 
     <ImageView
         android:id="@+id/image_view"
