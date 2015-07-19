@@ -122,9 +122,9 @@ public class SettingsFragment extends DialogFragment {
                 if (isChecked) {
                     if (mNumberModelManager.setCurrentModel("" + buttonView.getText())) {
                         ScrummdApplication.post(new ModelChanged());
+                        dismiss();
                     }
                 }
-                dismiss();
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
