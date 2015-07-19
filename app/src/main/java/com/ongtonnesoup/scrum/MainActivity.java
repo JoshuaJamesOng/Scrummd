@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Subscribe
     public void onModelChanged(ModelChanged event) {
         mPagerAdapter.notifyDataSetChanged();
+        mPager.setCurrentItem(0);
     }
 
     private void showSettings() {
