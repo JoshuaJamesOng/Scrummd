@@ -3,6 +3,7 @@ package com.ongtonnesoup.scrum.managers;
 import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
+import com.ongtonnesoup.scrum.models.numbers.ShirtNumberModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class NumberModelManager {
 
     public NumberModelManager() {
         mCurrentModel = new ScrumNumberModel();
-        mModels = Arrays.asList(mCurrentModel, new FibonacciNumberModel());
+        mModels = Arrays.asList(mCurrentModel, new FibonacciNumberModel(), new ShirtNumberModel());
     }
 
     public NumberModel getCurrentModel() {
