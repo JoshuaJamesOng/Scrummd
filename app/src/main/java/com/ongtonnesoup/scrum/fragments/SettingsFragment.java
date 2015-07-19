@@ -124,6 +124,7 @@ public class SettingsFragment extends DialogFragment {
                         ScrummdApplication.post(new ModelChanged());
                     }
                 }
+                dismiss();
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
