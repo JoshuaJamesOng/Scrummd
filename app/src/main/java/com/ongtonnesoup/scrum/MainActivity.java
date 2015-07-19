@@ -11,13 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
+import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
-import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 int position = getPopupButtonPosition();
                 PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
                 popupFragment.show(mFragmentManager, "YO");
-                setPopupButtonIcon(true);
+                startFabAnimation();
             }
         });
 
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private void setPopupButtonIcon(boolean popupOpen) {
         if (popupOpen) {
             mAddButton.setImageResource(R.drawable.ic_check);
+            revertFabAnimation();
         } else {
             mAddButton.setImageResource(R.drawable.ic_dots_vertical);
         }
@@ -159,6 +162,32 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         } else {
             return mAddButton.getPaddingBottom() + mAddButton.getHeight();
         }
+    }
+
+    private void startFabAnimation() {
+        Animation animation = new PopupButtonAnimation(mAddButton);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setPopupButtonIcon(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mAddButton.startAnimation(animation);
+    }
+
+    private void revertFabAnimation() {
+        PopupButtonAnimation animation = (PopupButtonAnimation) mAddButton.getAnimation();
+        animation.revertAnimation();
     }
 
 }
