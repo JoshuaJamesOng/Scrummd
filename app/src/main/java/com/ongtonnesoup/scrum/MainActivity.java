@@ -4,8 +4,10 @@ import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
+import com.ongtonnesoup.scrum.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.squareup.otto.Subscribe;
 
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected FloatingActionButton mAddButton;
     @InjectView(R.id.settings)
     protected ImageView mSettingsView;
+    @InjectView(R.id.rootLayout)
+    protected CoordinatorLayout mRootLayout;
 
     private FragmentManager mFragmentManager;
     private ColourThemeManager mColourThemeManager;
@@ -58,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
                 popupFragment.show(mFragmentManager, "YO");
                 startFabAnimation();
+            }
+        });
+        mSettingsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettings();
             }
         });
 
@@ -125,6 +136,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Subscribe
     public void onPopupClosed(PopupClosed event) {
         setPopupButtonIcon(false);
+    }
+
+    private void showSettings() {
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.add(R.id.rootLayout, new SettingsFragment()).addToBackStack("Settings");
+        transaction.commit();
     }
 
     private void setPopupButtonIcon(boolean popupOpen) {
