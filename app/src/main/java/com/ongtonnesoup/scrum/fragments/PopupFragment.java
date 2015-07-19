@@ -18,7 +18,7 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.PopupClosed;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     private static String KEY_TEXT_COLOR = "KEY_Text_Color";
 
     @Inject
-    protected NumberModel mNumberModel;
+    protected NumberModelManager mNumberModelManager;
     protected GridView mGridview;
     protected NumberAdapter mAdapter;
     protected int mTextColor;
@@ -111,7 +111,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedEstimate = mNumberModel.getNumbers()[position];
+        String selectedEstimate = mNumberModelManager.getCurrentModel().getNumbers()[position];
         ScrummdApplication.post(new EstimateSelected(selectedEstimate));
         ScrummdApplication.post(new PopupClosed());
         dismiss();

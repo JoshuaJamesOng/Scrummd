@@ -11,7 +11,7 @@ import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ public class NumberAdapter extends BaseAdapter {
     @Inject
     protected Context mContext;
     @Inject
-    protected NumberModel mNumberModel;
+    protected NumberModelManager mNumberModelManager;
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
 
@@ -32,7 +32,7 @@ public class NumberAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mNumberModel.getNumbers().length;
+        return mNumberModelManager.getCurrentModel().getNumbers().length;
     }
 
     public Object getItem(int position) {
@@ -64,7 +64,7 @@ public class NumberAdapter extends BaseAdapter {
         int resourceId = mNumberModelDecorator.getResourceIdentifier(position);
 
         if (estimate != null) {
-            viewHolder.circleView.setTitleText(mNumberModel.getNumbers()[position]);
+            viewHolder.circleView.setTitleText(mNumberModelManager.getCurrentModel().getNumbers()[position]);
             viewHolder.imageView.setVisibility(View.GONE);
         } else {
             viewHolder.circleView.setTitleText("");

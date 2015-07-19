@@ -11,9 +11,19 @@ import java.util.List;
 public class NumberModelManager {
 
     private final List<NumberModel> mModels;
+    private NumberModel mCurrentModel;
 
     public NumberModelManager() {
-        mModels = Arrays.asList(new ScrumNumberModel(), new FibonacciNumberModel());
+        mCurrentModel = new ScrumNumberModel();
+        mModels = Arrays.asList(mCurrentModel, new FibonacciNumberModel());
+    }
+
+    public NumberModel getCurrentModel() {
+        return mCurrentModel;
+    }
+
+    public void setCurrentModel(NumberModel model) {
+        mCurrentModel = model;
     }
 
     public List<String> getModelNames() {

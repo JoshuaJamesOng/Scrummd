@@ -8,8 +8,8 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
     @Inject
     protected ColourThemeManager mColourThemeManager;
     @Inject
-    protected NumberModel mNumberModel;
+    protected NumberModelManager mNumberModelManager;
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
 
@@ -45,12 +45,12 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumberModel.getNumbers().length;
+        return mNumberModelManager.getCurrentModel().getNumbers().length;
     }
 
     public int getIndex(String value) {
-        for (int i = 0; i < mNumberModel.getNumbers().length; i++) {
-            if (mNumberModel.getNumbers()[i].equalsIgnoreCase(value)) {
+        for (int i = 0; i < mNumberModelManager.getCurrentModel().getNumbers().length; i++) {
+            if (mNumberModelManager.getCurrentModel().getNumbers()[i].equalsIgnoreCase(value)) {
                 return i;
             }
         }

@@ -37,8 +37,6 @@ public class SettingsFragment extends DialogFragment {
     @Inject
     protected Context mContext;
     @Inject
-    protected NumberModel mNumberModel;
-    @Inject
     protected NumberModelManager mNumberModelManager;
     @Inject
     protected ResourceManager mResources;
@@ -91,7 +89,7 @@ public class SettingsFragment extends DialogFragment {
         int checked = -1;
         for (int i = 0; i < names.size(); i++) {
             RadioButton option = createRadioOption(names.get(i));
-            if (names.get(i).equalsIgnoreCase(mNumberModel.getName())) {
+            if (names.get(i).equalsIgnoreCase(mNumberModelManager.getCurrentModel().getName())) {
                 checked = i;
             }
             mRadioGroup.addView(option);

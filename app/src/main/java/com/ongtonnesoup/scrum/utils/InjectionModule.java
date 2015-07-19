@@ -43,8 +43,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModel provideNumber() {
-        return new ScrumNumberModel();
+    public NumberModelManager providNumberModelManager() {
+        return new NumberModelManager();
     }
 
     @Provides
@@ -68,12 +68,6 @@ public class InjectionModule {
     @Singleton
     public ColourThemeManager provideColourThemeManager() {
         return new ColourThemeManager();
-    }
-
-    @Provides
-    @Singleton
-    public NumberModelManager providNumberModelManager() {
-        return new NumberModelManager();
     }
 
     @Provides

@@ -1,6 +1,5 @@
 package com.ongtonnesoup.scrum.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,8 +10,8 @@ import android.widget.ImageView;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
 
@@ -30,7 +29,7 @@ public class NumberFragment extends Fragment {
     @InjectView(R.id.image_view)
     protected ImageView mImageView;
     @Inject
-    protected NumberModel mNumberModel;
+    protected NumberModelManager mNumberModelManager;
     @Inject
     protected ResourceManager mResources;
 
@@ -79,7 +78,7 @@ public class NumberFragment extends Fragment {
                 setColor(colorId);
             }
         } else {
-            setEstimate(mNumberModel.getInitialValue());
+            setEstimate(mNumberModelManager.getCurrentModel().getInitialValue());
         }
 
         return view;
