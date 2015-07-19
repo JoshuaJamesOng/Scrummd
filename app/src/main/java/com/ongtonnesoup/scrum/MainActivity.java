@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
+import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.events.PopupClosed;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             @Override
             public void onClick(View v) {
                 showSettings();
+                startSettingsAnimation();
             }
         });
 
@@ -209,6 +211,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
         mAddButton.startAnimation(animation);
+    }
+
+    private void startSettingsAnimation() {
+        Animation animation = new SettingsButtonAnimation(mSettingsView);
+        mSettingsView.startAnimation(animation);
     }
 
     private void revertFabAnimation() {
