@@ -1,7 +1,6 @@
 package com.ongtonnesoup.scrum.fragments;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
 import javax.inject.Inject;
@@ -32,9 +32,7 @@ public class NumberFragment extends Fragment {
     @Inject
     protected NumberModel mNumberModel;
     @Inject
-    protected Context mContext;
-    @Inject
-    protected Resources mResources;
+    protected ResourceManager mResources;
 
     public static NumberFragment newInstance(String estimate, int colorId) {
         NumberFragment fragment = new NumberFragment();
@@ -84,7 +82,7 @@ public class NumberFragment extends Fragment {
     private int getDrawable(String estimate) {
         String resourceName = estimate.substring(RESOURCE_IDENTIFIER.length());
 
-        int id = mResources.getIdentifier(resourceName, "drawable", mContext.getPackageName());
+        int id = mResources.findResourceIdentifier(resourceName);
 
         if (id == 0) {
             setEstimate("Error");

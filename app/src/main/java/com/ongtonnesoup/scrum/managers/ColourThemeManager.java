@@ -1,8 +1,5 @@
 package com.ongtonnesoup.scrum.managers;
 
-import android.content.res.Resources;
-
-import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 
@@ -11,16 +8,16 @@ import javax.inject.Inject;
 public class ColourThemeManager {
 
     @Inject
-    Resources mResources;
+    ResourceManager mResources;
     private final int[] mBackgroundColors;
     private final int[] mFillColors;
     private final int[] mStatusBarColors;
 
     public ColourThemeManager() {
         ScrummdApplication.inject(this);
-        mBackgroundColors = mResources.getIntArray(R.array.background_colors);
-        mFillColors = mResources.getIntArray(R.array.fill_colours);
-        mStatusBarColors = mResources.getIntArray(R.array.status_bar_colors);
+        mBackgroundColors = mResources.getBackgroundColors();
+        mFillColors = mResources.getFillColors();
+        mStatusBarColors = mResources.getStatusBarColors();
     }
 
     public int[] getBackgroundColors() {

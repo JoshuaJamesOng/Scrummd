@@ -7,6 +7,7 @@ import com.ongtonnesoup.scrum.MainActivity;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
@@ -24,6 +25,7 @@ import dagger.Provides;
         PopupFragment.class,
         NumberAdapter.class,
         NumberFragmentPagerAdapter.class,
+        ResourceManager.class,
         ColourThemeManager.class},
         library = true, complete = true)
 public class InjectionModule {
@@ -52,14 +54,15 @@ public class InjectionModule {
     }
 
     @Provides
-    public Resources provideResources() {
-        return mContext.getResources();
+    @Singleton
+    public ColourThemeManager provideColourThemeManager() {
+        return new ColourThemeManager();
     }
 
     @Provides
     @Singleton
-    public ColourThemeManager provideColourThemeManager() {
-        return new ColourThemeManager();
+    public ResourceManager provideResourceManager() {
+        return new ResourceManager(mContext.getResources());
     }
 
 }
