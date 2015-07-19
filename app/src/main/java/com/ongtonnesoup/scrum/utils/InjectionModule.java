@@ -40,7 +40,7 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModelManager providNumberModelManager() {
+    public NumberModelManager provideNumberModelManager() {
         return new NumberModelManager();
     }
 
