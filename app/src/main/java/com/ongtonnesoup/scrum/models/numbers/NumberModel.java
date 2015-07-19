@@ -9,6 +9,10 @@ public abstract class NumberModel {
         return mNumbers;
     }
 
+    public String getNumber(int index) {
+        return mNumbers[index];
+    }
+
     public String getInitialValue() {
         return mInitialValue;
     }

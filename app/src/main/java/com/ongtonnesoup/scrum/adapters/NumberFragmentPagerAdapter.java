@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 
@@ -18,6 +19,8 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
     protected ColourThemeManager mColourThemeManager;
     @Inject
     protected NumberModel mNumberModel;
+    @Inject
+    protected NumberModelDecorator mNumberModelDecorator;
 
     public NumberFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -26,10 +29,18 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        String number = mNumberModel.getNumbers()[i];
+        String estimate = mNumberModelDecorator.getNumber(i);
+        int resourceId = mNumberModelDecorator.getResourceIdentifier(i);
         int colorIndex = mColourThemeManager.getColorForIndex(i);
         ColourTheme theme = mColourThemeManager.generateNewColourTheme(colorIndex);
-        return NumberFragment.newInstance(number, theme.getCircleColor());
+
+        NumberFragment fragment;
+        if (estimate != null) {
+            fragment = NumberFragment.newInstance(estimate, theme.getCircleColor());
+        } else {
+            fragment = NumberFragment.newInstance(resourceId, theme.getCircleColor());
+        }
+        return fragment;
     }
 
     @Override

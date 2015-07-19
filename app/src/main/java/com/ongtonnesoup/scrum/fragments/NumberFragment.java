@@ -23,7 +23,7 @@ public class NumberFragment extends Fragment {
 
     private static final String KEY_ESTIMATE = "KEY_Estimate";
     private static final String KEY_COLOR_ID = "KEY_Color_Id";
-    private static final String RESOURCE_IDENTIFIER = "R.drawable.";
+    private static final String KEY_RESOURCE_ID = "KEY_Resource_Id";
 
     @InjectView(R.id.circle_view)
     protected CircleView mCircleView;
@@ -38,6 +38,15 @@ public class NumberFragment extends Fragment {
         NumberFragment fragment = new NumberFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ESTIMATE, estimate);
+        bundle.putInt(KEY_COLOR_ID, colorId);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static NumberFragment newInstance(int resourceId, int colorId) {
+        NumberFragment fragment = new NumberFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_RESOURCE_ID, resourceId);
         bundle.putInt(KEY_COLOR_ID, colorId);
         fragment.setArguments(bundle);
         return fragment;
@@ -60,13 +69,10 @@ public class NumberFragment extends Fragment {
         if (arguments != null) {
             if (arguments.containsKey(KEY_ESTIMATE)) {
                 String estimate = arguments.getString(KEY_ESTIMATE);
-
-                if (estimate.contains(RESOURCE_IDENTIFIER)) {
-                    int id = getDrawable(estimate);
-                    setIcon(id);
-                } else {
-                    setEstimate(estimate);
-                }
+                setEstimate(estimate);
+            } else if (arguments.containsKey(KEY_RESOURCE_ID)) {
+                int resourceId = arguments.getInt(KEY_RESOURCE_ID);
+                setIcon(resourceId);
             }
             if (arguments.containsKey(KEY_COLOR_ID)) {
                 int colorId = arguments.getInt(KEY_COLOR_ID);
@@ -77,18 +83,6 @@ public class NumberFragment extends Fragment {
         }
 
         return view;
-    }
-
-    private int getDrawable(String estimate) {
-        String resourceName = estimate.substring(RESOURCE_IDENTIFIER.length());
-
-        int id = mResources.findResourceIdentifier(resourceName);
-
-        if (id == 0) {
-            setEstimate("Error");
-        }
-
-        return id;
     }
 
     @Override
