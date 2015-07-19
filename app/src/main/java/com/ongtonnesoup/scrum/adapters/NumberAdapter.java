@@ -17,14 +17,13 @@ import javax.inject.Inject;
 
 public class NumberAdapter extends BaseAdapter {
 
+    private final int mColor;
     @Inject
     protected Context mContext;
     @Inject
     protected NumberModelManager mNumberModelManager;
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
-
-    private final int mColor;
 
     public NumberAdapter(int textColorId) {
         ScrummdApplication.inject(this);

@@ -10,10 +10,9 @@ import javax.inject.Inject;
 
 public class ResourceManager {
 
+    private final Resources mResources;
     @Inject
     protected Context mContext;
-
-    private final Resources mResources;
 
     public ResourceManager(Resources resources) {
         ScrummdApplication.inject(this);
@@ -43,6 +42,7 @@ public class ResourceManager {
     private int[] getColorArray(int id) {
         return mResources.getIntArray(id);
     }
+
     public int findResourceIdentifier(String resourceName) {
         return mResources.getIdentifier(resourceName, "drawable", mContext.getPackageName());
     }

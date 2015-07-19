@@ -32,18 +32,17 @@ import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
+    private final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     @InjectView(R.id.add_button)
     protected FloatingActionButton mAddButton;
     @InjectView(R.id.settings)
     protected ImageView mSettingsView;
     @InjectView(R.id.rootLayout)
     protected CoordinatorLayout mRootLayout;
-
     private FragmentManager mFragmentManager;
     private ColourThemeManager mColourThemeManager;
     private ViewPager mPager;
     private NumberFragmentPagerAdapter mPagerAdapter;
-    private final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     private Window mWindow;
     private int mPopupFragmentTextColor;
     private int[] mSecondaryColors;

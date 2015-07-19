@@ -7,11 +7,11 @@ import javax.inject.Inject;
 
 public class ColourThemeManager {
 
-    @Inject
-    ResourceManager mResources;
     private final int[] mBackgroundColors;
     private final int[] mFillColors;
     private final int[] mStatusBarColors;
+    @Inject
+    ResourceManager mResources;
 
     public ColourThemeManager() {
         ScrummdApplication.inject(this);

@@ -14,16 +14,16 @@ public abstract class NumberModel {
         return mNumbers;
     }
 
+    protected void setNumbers(String[] values) {
+        mNumbers = values;
+    }
+
     public String getNumber(int index) {
         return mNumbers[index];
     }
 
     public String getInitialValue() {
         return mInitialValue;
-    }
-
-    protected void setNumbers(String[] values) {
-        mNumbers = values;
     }
 
     protected void setInitialValue(int index) {
