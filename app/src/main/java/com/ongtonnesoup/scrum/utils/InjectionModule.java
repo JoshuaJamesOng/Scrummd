@@ -11,6 +11,7 @@ import com.ongtonnesoup.scrum.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.managers.PersistenceManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
 
@@ -28,6 +29,7 @@ import dagger.Provides;
         NumberFragmentPagerAdapter.class,
         ResourceManager.class,
         NumberModelDecorator.class,
+        NumberModelManager.class,
         ColourThemeManager.class},
         library = true, complete = true)
 public class InjectionModule {
@@ -72,5 +74,12 @@ public class InjectionModule {
     public ResourceManager provideResourceManager() {
         return new ResourceManager(mContext.getResources());
     }
+
+    @Provides
+    @Singleton
+    public PersistenceManager providePersistenceManager() {
+        return new PersistenceManager(mContext.getSharedPreferences(PersistenceManager.SHARED_PREFERENCES, Context.MODE_PRIVATE));
+    }
+
 
 }
