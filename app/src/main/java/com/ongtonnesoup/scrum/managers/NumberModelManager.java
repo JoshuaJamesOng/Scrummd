@@ -1,6 +1,5 @@
 package com.ongtonnesoup.scrum.managers;
 
-import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.NumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
@@ -15,13 +14,13 @@ import javax.inject.Inject;
 public class NumberModelManager {
 
     public static final String KEY_MODEL = "KEY_MODEL";
-    @Inject
     protected PersistenceManager mPersitenceManager;
     private final List<NumberModel> mModels;
     private NumberModel mCurrentModel;
 
-    public NumberModelManager() {
-        ScrummdApplication.inject(this);
+    @Inject
+    public NumberModelManager(PersistenceManager persistenceManager) {
+        mPersitenceManager = persistenceManager;
         mModels = Arrays.asList(new ScrumNumberModel(), new FibonacciNumberModel(), new ShirtNumberModel());
         mCurrentModel = load();
         if (mCurrentModel == null) {

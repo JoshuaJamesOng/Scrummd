@@ -12,8 +12,12 @@ public class ScrummdApplication extends Application {
     private static Bus mBus;
     private static ObjectGraph mObjectGraph;
 
+    public static ObjectGraph getObjectGraph() {
+        return mObjectGraph;
+    }
+
     public static void inject(Object object) {
-        mObjectGraph.inject(object);
+        getObjectGraph().inject(object);
     }
 
     public static void register(Object object) {

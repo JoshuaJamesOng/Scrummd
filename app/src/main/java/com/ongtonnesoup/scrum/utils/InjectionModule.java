@@ -42,8 +42,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModelManager provideNumberModelManager() {
-        return new NumberModelManager();
+    public NumberModelManager provideNumberModelManager(PersistenceManager persistenceManager) {
+        return new NumberModelManager(persistenceManager);
     }
 
     @Provides
