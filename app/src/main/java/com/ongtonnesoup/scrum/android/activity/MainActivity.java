@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void showSettings() {
         DialogFragment fragment = SettingsFragment.newInstance(mPopupFragmentTextColor);
         fragment.show(mFragmentManager, "Settings");
-        mAnimator.startSettingsAnimation();
     }
 
     @Override
@@ -124,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         int position = getPopupButtonPosition();
         PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
         popupFragment.show(mFragmentManager, "YO");
-        mAnimator.startFabAnimation();
     }
 
     @Override
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onEstimatePickerOpened() {
-
+        mAnimator.startFabAnimation();
     }
 
     @Override
@@ -159,12 +157,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onSettingsOpened() {
-
+        mAnimator.startSettingsAnimation();
     }
 
     @Override
     public void onSettingsClosed() {
-
     }
 
     private void setPopupButtonIcon(boolean popupOpen) {
