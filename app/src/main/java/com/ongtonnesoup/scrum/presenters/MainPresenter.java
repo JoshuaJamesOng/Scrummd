@@ -2,6 +2,7 @@ package com.ongtonnesoup.scrum.presenters;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
+import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.views.MainView;
@@ -53,6 +54,13 @@ public class MainPresenter {
     public void onEstimateChanged(EstimateSelected event) {
         if (event != null) {
             mView.changeEstimate(event.getNumber());
+        }
+    }
+
+    @Subscribe
+    public void onModelChanged(ModelChanged event) {
+        if (event != null) {
+            mView.onNumberModelChanged();
         }
     }
 
