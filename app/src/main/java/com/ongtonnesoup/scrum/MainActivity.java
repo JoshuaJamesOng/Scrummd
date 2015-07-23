@@ -26,6 +26,7 @@ import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.presenters.MainPresenter;
 import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private int mPopupFragmentTextColor;
     private int[] mSecondaryColors;
     private int[] mAccentColors;
+
+    private MainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
