@@ -9,6 +9,7 @@ public interface MainView {
 
     void onEstimatePickerOpened();
     void onEstimatePickerClosed();
+    void onNumberModelChanged();
     void onSettingsOpened();
     void onSettingsClosed();
 

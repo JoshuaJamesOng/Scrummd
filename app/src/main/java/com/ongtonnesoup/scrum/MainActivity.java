@@ -1,10 +1,8 @@
 package com.ongtonnesoup.scrum;
 
-import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -20,35 +18,26 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
-import com.ongtonnesoup.scrum.events.EstimateSelected;
-import com.ongtonnesoup.scrum.events.ModelChanged;
-import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.fragments.SettingsFragment;
-import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.presenters.MainPresenter;
-import com.squareup.otto.Subscribe;
+import com.ongtonnesoup.scrum.views.MainView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, MainView {
 
-    private final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     @InjectView(R.id.add_button)
-    protected FloatingActionButton mAddButton;
+    FloatingActionButton mAddButton;
     @InjectView(R.id.settings)
-    protected ImageView mSettingsView;
-    @InjectView(R.id.rootLayout)
-    protected CoordinatorLayout mRootLayout;
+    ImageView mSettingsView;
+
     private FragmentManager mFragmentManager;
-    private ColourThemeManager mColourThemeManager;
     private ViewPager mPager;
     private NumberFragmentPagerAdapter mPagerAdapter;
     private Window mWindow;
     private int mPopupFragmentTextColor;
-    private int[] mSecondaryColors;
-    private int[] mAccentColors;
 
     private MainPresenter mPresenter;
 
@@ -60,30 +49,24 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         ScrummdApplication.inject(this);
         ButterKnife.inject(this);
 
+        mPresenter = new MainPresenter(this);
+
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = getPopupButtonPosition();
-                PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
-                popupFragment.show(mFragmentManager, "YO");
-                startFabAnimation();
+                mPresenter.showEstimatePopup();
             }
         });
         mSettingsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSettings();
-                startSettingsAnimation();
+                mPresenter.showSettings();
             }
         });
 
         mWindow = getWindow();
 
-        mColourThemeManager = new ColourThemeManager();
         mFragmentManager = getSupportFragmentManager();
-
-        mSecondaryColors = mColourThemeManager.getBackgroundColors();
-        mAccentColors = mColourThemeManager.getStatusBarColors();
 
         mPager = (ViewPager) findViewById(R.id.fragment_container);
         mPager.addOnPageChangeListener(this);
@@ -100,27 +83,18 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     protected void onResume() {
         super.onResume();
-        ScrummdApplication.register(this);
-        ScrummdApplication.register(mColourThemeManager);
+        ScrummdApplication.register(mPresenter);
     }
 
     @Override
     protected void onPause() {
-        ScrummdApplication.unregister(mColourThemeManager);
-        ScrummdApplication.unregister(this);
+        ScrummdApplication.unregister(mPresenter);
         super.onPause();
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        int targetPosition = position + 1;
-        position = mColourThemeManager.getColorForIndex(position);
-        targetPosition = mColourThemeManager.getColorForIndex(targetPosition);
-
-        setBackgroundColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[targetPosition]));
-        setStatusBarColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[targetPosition]));
-        setPopupEstimateCircleColor(calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[targetPosition]));
-        setPopupButtonIconColor(calculateColor(positionOffset, mAccentColors[position], mAccentColors[targetPosition]));
+        mPresenter.onDrag(position, positionOffset, positionOffsetPixels);
     }
 
     @Override
@@ -132,26 +106,59 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     }
 
-    @Subscribe
-    public void onEstimateChanged(EstimateSelected event) {
-        int index = mPagerAdapter.getIndex(event.getNumber());
+    @Override
+    public void showSettings() {
+        DialogFragment fragment = SettingsFragment.newInstance(mPopupFragmentTextColor);
+        fragment.show(mFragmentManager, "Settings");
+        startSettingsAnimation();
+    }
+
+    @Override
+    public void showEstimatePicker() {
+        int position = getPopupButtonPosition();
+        PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
+        popupFragment.show(mFragmentManager, "YO");
+        startFabAnimation();
+    }
+
+    @Override
+    public void changeEstimate(String estimate) {
+        int index = mPagerAdapter.getIndex(estimate);
         mPager.setCurrentItem(index);
     }
 
-    @Subscribe
-    public void onPopupClosed(PopupClosed event) {
+    @Override
+    public void setTheming(int background, int status, int popup, int button) {
+        setBackgroundColor(background);
+        setStatusBarColor(status);
+        setPopupEstimateCircleColor(popup);
+        setPopupButtonIconColor(button);
+    }
+
+    @Override
+    public void onEstimatePickerOpened() {
+
+    }
+
+    @Override
+    public void onEstimatePickerClosed() {
         setPopupButtonIcon(false);
     }
 
-    @Subscribe
-    public void onModelChanged(ModelChanged event) {
+    @Override
+    public void onNumberModelChanged() {
         mPagerAdapter.notifyDataSetChanged();
         mPager.setCurrentItem(0);
     }
 
-    private void showSettings() {
-        DialogFragment fragment = SettingsFragment.newInstance(mPopupFragmentTextColor);
-        fragment.show(mFragmentManager, "Settings");
+    @Override
+    public void onSettingsOpened() {
+
+    }
+
+    @Override
+    public void onSettingsClosed() {
+
     }
 
     private void setPopupButtonIcon(boolean popupOpen) {
@@ -181,10 +188,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             mWindow.setStatusBarColor(color);
         }
-    }
-
-    private int calculateColor(float positionOffset, int start, int end) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, start, end);
     }
 
     private int getPopupButtonPosition() {

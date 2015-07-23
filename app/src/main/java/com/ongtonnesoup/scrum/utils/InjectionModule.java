@@ -5,15 +5,18 @@ import android.content.Context;
 import com.ongtonnesoup.scrum.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
+import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;
 import com.ongtonnesoup.scrum.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.fragments.SettingsFragment;
+import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.PersistenceManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
 import com.ongtonnesoup.scrum.models.ColourTheme;
+import com.ongtonnesoup.scrum.presenters.MainPresenter;
 
 import javax.inject.Singleton;
 
@@ -30,6 +33,7 @@ import dagger.Provides;
         ResourceManager.class,
         NumberModelDecorator.class,
         NumberModelManager.class,
+        MainPresenter.class,
         ColourThemeManager.class},
         library = true, complete = true)
 public class InjectionModule {
@@ -81,5 +85,9 @@ public class InjectionModule {
         return new PersistenceManager(mContext.getSharedPreferences(PersistenceManager.SHARED_PREFERENCES, Context.MODE_PRIVATE));
     }
 
+    @Provides
+    public ColourBlender provideColourBlender() {
+        return new ArgbEvaluatorFacade();
+    }
 
 }
