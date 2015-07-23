@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.fragments;
+package com.ongtonnesoup.scrum.android.fragments;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum;
+package com.ongtonnesoup.scrum.android.activity;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -15,11 +15,13 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.ongtonnesoup.scrum.R;
+import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
+import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
+import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
-import com.ongtonnesoup.scrum.fragments.PopupFragment;
-import com.ongtonnesoup.scrum.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.presenters.MainPresenter;
 import com.ongtonnesoup.scrum.views.MainView;
 
@@ -36,20 +38,38 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private FragmentManager mFragmentManager;
     private ViewPager mPager;
     private NumberFragmentPagerAdapter mPagerAdapter;
-    private Window mWindow;
     private int mPopupFragmentTextColor;
 
     private MainPresenter mPresenter;
+    private Animator mAnimator;
+    private ColourApplicator mColourApplicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initialise();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ScrummdApplication.register(mPresenter);
+    }
+
+    @Override
+    protected void onPause() {
+        ScrummdApplication.unregister(mPresenter);
+        super.onPause();
+    }
+
+    private void initialise() {
         ScrummdApplication.inject(this);
         ButterKnife.inject(this);
 
         mPresenter = new MainPresenter(this);
+        mAnimator = new Animator();
+        mColourApplicator = new ColourApplicator();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +84,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
 
-        mWindow = getWindow();
-
         mFragmentManager = getSupportFragmentManager();
 
         mPager = (ViewPager) findViewById(R.id.fragment_container);
@@ -78,18 +96,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     .rippleColor(Color.BLACK)
                     .create();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ScrummdApplication.register(mPresenter);
-    }
-
-    @Override
-    protected void onPause() {
-        ScrummdApplication.unregister(mPresenter);
-        super.onPause();
     }
 
     @Override
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void showSettings() {
         DialogFragment fragment = SettingsFragment.newInstance(mPopupFragmentTextColor);
         fragment.show(mFragmentManager, "Settings");
-        startSettingsAnimation();
+        mAnimator.startSettingsAnimation();
     }
 
     @Override
@@ -118,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         int position = getPopupButtonPosition();
         PopupFragment popupFragment = PopupFragment.newInstance(position, mPopupFragmentTextColor);
         popupFragment.show(mFragmentManager, "YO");
-        startFabAnimation();
+        mAnimator.startFabAnimation();
     }
 
     @Override
@@ -129,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void setTheming(int background, int status, int popup, int button) {
-        setBackgroundColor(background);
-        setStatusBarColor(status);
-        setPopupEstimateCircleColor(popup);
-        setPopupButtonIconColor(button);
+        mColourApplicator.setBackgroundColor(background);
+        mColourApplicator.setStatusBarColor(status);
+        mColourApplicator.setPopupEstimateCircleColor(popup);
+        mColourApplicator.setPopupButtonIconColor(button);
     }
 
     @Override
@@ -164,29 +170,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private void setPopupButtonIcon(boolean popupOpen) {
         if (popupOpen) {
             mAddButton.setImageResource(R.drawable.ic_check);
-            revertFabAnimation();
+            mAnimator.revertFabAnimation();
         } else {
             mAddButton.setImageResource(R.drawable.ic_dots_vertical);
-        }
-    }
-
-    private void setBackgroundColor(int color) {
-        mPager.setBackgroundColor(color);
-    }
-
-    private void setPopupButtonIconColor(int color) {
-        mAddButton.setColorFilter(color);
-    }
-
-    private void setPopupEstimateCircleColor(int color) {
-        mPopupFragmentTextColor = (color);
-    }
-
-    private void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mWindow.setStatusBarColor(color);
         }
     }
 
@@ -198,35 +184,63 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         }
     }
 
-    private void startFabAnimation() {
-        Animation animation = new PopupButtonAnimation(mAddButton);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+    private class ColourApplicator {
 
+        private void setBackgroundColor(int color) {
+            mPager.setBackgroundColor(color);
+        }
+
+        private void setPopupButtonIconColor(int color) {
+            mAddButton.setColorFilter(color);
+        }
+
+        private void setPopupEstimateCircleColor(int color) {
+            mPopupFragmentTextColor = (color);
+        }
+
+        private void setStatusBarColor(int color) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.setStatusBarColor(color);
             }
+        }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setPopupButtonIcon(true);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        mAddButton.startAnimation(animation);
     }
 
-    private void startSettingsAnimation() {
-        Animation animation = new SettingsButtonAnimation(mSettingsView);
-        mSettingsView.startAnimation(animation);
-    }
+    private class Animator {
 
-    private void revertFabAnimation() {
-        PopupButtonAnimation animation = (PopupButtonAnimation) mAddButton.getAnimation();
-        animation.revertAnimation();
-    }
+        private void startFabAnimation() {
+            Animation animation = new PopupButtonAnimation(mAddButton);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    setPopupButtonIcon(true);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mAddButton.startAnimation(animation);
+        }
+
+        private void startSettingsAnimation() {
+            Animation animation = new SettingsButtonAnimation(mSettingsView);
+            mSettingsView.startAnimation(animation);
+        }
+
+        private void revertFabAnimation() {
+            PopupButtonAnimation animation = (PopupButtonAnimation) mAddButton.getAnimation();
+            animation.revertAnimation();
+        }
+
+    }
 }

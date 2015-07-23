@@ -2,13 +2,13 @@ package com.ongtonnesoup.scrum.utils;
 
 import android.content.Context;
 
-import com.ongtonnesoup.scrum.MainActivity;
+import com.ongtonnesoup.scrum.android.activity.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;
-import com.ongtonnesoup.scrum.fragments.NumberFragment;
-import com.ongtonnesoup.scrum.fragments.PopupFragment;
-import com.ongtonnesoup.scrum.fragments.SettingsFragment;
+import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
+import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
+import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
