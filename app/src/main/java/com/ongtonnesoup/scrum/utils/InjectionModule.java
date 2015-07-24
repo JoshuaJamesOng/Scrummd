@@ -59,8 +59,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public ColourTheme provideColourTheme() {
-        return new ColourTheme();
+    public ColourTheme<Integer> provideColourTheme() {
+        return new ColourTheme<Integer>();
     }
 
     @Provides

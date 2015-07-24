@@ -1,32 +1,32 @@
 package com.ongtonnesoup.scrummd.domain.models.theme;
 
-public class ColourTheme {
+public class ColourTheme<T> {
 
-    private int mPrimaryColor;
-    private int mSecondaryColor;
-    private int mAccentColor;
+    private T mPrimaryColor;
+    private T mSecondaryColor;
+    private T mAccentColor;
 
-    public int getPrimaryColor() {
+    public T getPrimaryColor() {
         return mPrimaryColor;
     }
 
-    public int getSecondaryColor() {
+    public T getSecondaryColor() {
         return mSecondaryColor;
     }
 
-    public int getAccentColor() {
+    public T getAccentColor() {
         return mAccentColor;
     }
 
-    public void setPrimary(int value) {
+    public void setPrimary(T value) {
         mPrimaryColor = value;
     }
 
-    public void setSecondary(int value) {
+    public void setSecondary(T value) {
         mSecondaryColor = value;
     }
 
-    public void setAccent(int value) {
+    public void setAccent(T value) {
         mAccentColor = value;
     }
 

@@ -2,27 +2,27 @@ package com.ongtonnesoup.scrummd.domain.decorators;
 
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
-public class ColourThemeDecorator {
+public class ColourThemeDecorator<T> {
 
-    private final ColourTheme mColourTheme;
+    private final ColourTheme<T> mColourTheme;
 
-    public ColourThemeDecorator(ColourTheme colourTheme) {
+    public ColourThemeDecorator(ColourTheme<T> colourTheme) {
         mColourTheme = colourTheme;
     }
 
-    public int getBackgroundColor() {
+    public T getBackgroundColor() {
         return mColourTheme.getPrimaryColor();
     }
 
-    public int getCircleColor() {
+    public T getCircleColor() {
         return mColourTheme.getAccentColor();
     }
 
-    public int getStatusBarColor() {
+    public T getStatusBarColor() {
         return mColourTheme.getSecondaryColor();
     }
 
-    public int getTextColor() {
+    public T getTextColor() {
         return mColourTheme.getSecondaryColor();
     }
 }

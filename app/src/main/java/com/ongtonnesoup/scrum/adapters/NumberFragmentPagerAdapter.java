@@ -33,8 +33,8 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
         String estimate = mNumberModelDecorator.getNumber(i);
         int resourceId = mNumberModelDecorator.getResourceIdentifier(i);
         int colorIndex = mColoursModel.getColorForIndex(i);
-        ColourTheme theme = mColoursModel.generateNewColourTheme(colorIndex);
-        ColourThemeDecorator themeDecorator = new ColourThemeDecorator(theme);
+        ColourTheme<Integer> theme = mColoursModel.generateNewColourTheme(colorIndex);
+        ColourThemeDecorator<Integer> themeDecorator = new ColourThemeDecorator<>(theme);
         NumberFragment fragment;
         if (estimate != null) {
             fragment = NumberFragment.newInstance(estimate, themeDecorator.getCircleColor());
