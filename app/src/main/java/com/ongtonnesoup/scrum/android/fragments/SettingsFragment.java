@@ -17,7 +17,7 @@ import android.widget.RadioGroup;
 
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.events.ModelChanged;
+import com.ongtonnesoup.scrummd.domain.events.ModelChanged;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
 
