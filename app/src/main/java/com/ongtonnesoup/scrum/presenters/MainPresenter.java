@@ -4,7 +4,7 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.events.PopupClosed;
-import com.ongtonnesoup.scrummd.domain.interfaces.ColourBlender;
+import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.views.MainView;
 import com.squareup.otto.Subscribe;

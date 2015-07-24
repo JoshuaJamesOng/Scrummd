@@ -2,7 +2,7 @@ package com.ongtonnesoup.scrum.facades;
 
 import android.animation.ArgbEvaluator;
 
-import com.ongtonnesoup.scrummd.domain.interfaces.ColourBlender;
+import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 
 public class ArgbEvaluatorFacade implements ColourBlender {
 

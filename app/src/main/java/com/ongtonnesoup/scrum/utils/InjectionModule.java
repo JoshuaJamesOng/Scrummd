@@ -9,7 +9,7 @@ import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;
 import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
-import com.ongtonnesoup.scrummd.domain.interfaces.ColourBlender;
+import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
