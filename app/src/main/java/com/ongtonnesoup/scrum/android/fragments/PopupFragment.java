@@ -17,8 +17,8 @@ import android.widget.GridView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
-import com.ongtonnesoup.scrummd.domain.events.EstimateSelected;
-import com.ongtonnesoup.scrummd.domain.events.PopupClosed;
+import com.ongtonnesoup.scrum.events.EstimateSelected;
+import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrummd.domain.events;
+package com.ongtonnesoup.scrum.events;
 
 public class EstimateSelected {
 

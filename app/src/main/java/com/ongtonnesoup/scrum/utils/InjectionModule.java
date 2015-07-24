@@ -2,7 +2,7 @@ package com.ongtonnesoup.scrum.utils;
 
 import android.content.Context;
 
-import com.ongtonnesoup.scrum.android.activity.MainActivity;
+import com.ongtonnesoup.scrum.views.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;

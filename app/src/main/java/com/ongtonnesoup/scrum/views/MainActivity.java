@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.android.activity;
+package com.ongtonnesoup.scrum.views;
 
 import android.graphics.Color;
 import android.os.Build;
