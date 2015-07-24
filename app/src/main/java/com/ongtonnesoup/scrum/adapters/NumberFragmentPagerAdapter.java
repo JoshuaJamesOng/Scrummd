@@ -9,6 +9,7 @@ import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrummd.domain.decorators.ColourThemeDecorator;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
 import javax.inject.Inject;
@@ -33,12 +34,12 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
         int resourceId = mNumberModelDecorator.getResourceIdentifier(i);
         int colorIndex = mColourThemeManager.getColorForIndex(i);
         ColourTheme theme = mColourThemeManager.generateNewColourTheme(colorIndex);
-
+        ColourThemeDecorator themeDecorator = new ColourThemeDecorator(theme);
         NumberFragment fragment;
         if (estimate != null) {
-            fragment = NumberFragment.newInstance(estimate, theme.getCircleColor());
+            fragment = NumberFragment.newInstance(estimate, themeDecorator.getCircleColor());
         } else {
-            fragment = NumberFragment.newInstance(resourceId, theme.getCircleColor());
+            fragment = NumberFragment.newInstance(resourceId, themeDecorator.getCircleColor());
         }
         return fragment;
     }

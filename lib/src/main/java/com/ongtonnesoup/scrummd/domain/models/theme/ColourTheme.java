@@ -6,6 +6,18 @@ public class ColourTheme {
     private int mSecondaryColor;
     private int mAccentColor;
 
+    public int getPrimaryColor() {
+        return mPrimaryColor;
+    }
+
+    public int getSecondaryColor() {
+        return mSecondaryColor;
+    }
+
+    public int getAccentColor() {
+        return mAccentColor;
+    }
+
     public void setPrimary(int value) {
         mPrimaryColor = value;
     }
@@ -16,22 +28,6 @@ public class ColourTheme {
 
     public void setAccent(int value) {
         mAccentColor = value;
-    }
-
-    public int getBackgroundColor() {
-        return mPrimaryColor;
-    }
-
-    public int getCircleColor() {
-        return mAccentColor;
-    }
-
-    public int getStatusBarColor() {
-        return mSecondaryColor;
-    }
-
-    public int getTextColor() {
-        return mSecondaryColor;
     }
 
 }
