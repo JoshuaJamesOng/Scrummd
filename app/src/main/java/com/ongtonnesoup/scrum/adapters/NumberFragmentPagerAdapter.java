@@ -10,6 +10,7 @@ import com.ongtonnesoup.scrum.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.domain.decorators.ColourThemeDecorator;
+import com.ongtonnesoup.scrummd.domain.factorys.ColourThemeFactory;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
         String estimate = mNumberModelDecorator.getNumber(i);
         int resourceId = mNumberModelDecorator.getResourceIdentifier(i);
         int colorIndex = mColoursModel.getColorForIndex(i);
-        ColourTheme<Integer> theme = mColoursModel.generateNewColourTheme(colorIndex);
+        ColourTheme<Integer> theme = getColourTheme(colorIndex);
         ColourThemeDecorator<Integer> themeDecorator = new ColourThemeDecorator<>(theme);
         NumberFragment fragment;
         if (estimate != null) {
@@ -64,4 +65,10 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
         throw new IllegalArgumentException("Index for '" + value + "' does not exist");
     }
 
+    private ColourTheme<Integer> getColourTheme(int i) {
+        int primary = mColoursModel.getBackgroundColors()[i];
+        int secondary = mColoursModel.getStatusBarColors()[i];
+        int accent = mColoursModel.getFillColors()[i];
+        return ColourThemeFactory.<Integer>createColourTheme(primary, secondary, accent);
+    }
 }

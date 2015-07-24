@@ -33,14 +33,6 @@ public class ColoursModel {
         return mFillColors;
     }
 
-    public ColourTheme<Integer> generateNewColourTheme(int index) {
-        ColourTheme<Integer> theme = new ColourTheme<>();
-        theme.setPrimary(mBackgroundColors[index]);
-        theme.setSecondary(mStatusBarColors[index]);
-        theme.setAccent(mFillColors[index]);
-        return theme;
-    }
-
     public int getColorForIndex(int i) {
         int index;
         if (i < mBackgroundColors.length) {
