@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.models.numbers;
+package com.ongtonnesoup.scrummd.domain.models.numbermodels;
 
 public class FibonacciNumberModel extends NumberModel {
 

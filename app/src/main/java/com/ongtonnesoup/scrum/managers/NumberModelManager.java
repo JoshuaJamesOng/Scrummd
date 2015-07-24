@@ -1,9 +1,9 @@
 package com.ongtonnesoup.scrum.managers;
 
-import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
-import com.ongtonnesoup.scrum.models.numbers.NumberModel;
-import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
-import com.ongtonnesoup.scrum.models.numbers.ShirtNumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbermodels.FibonacciNumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbermodels.NumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbermodels.ScrumNumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbermodels.ShirtNumberModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
