@@ -3,6 +3,7 @@ package com.ongtonnesoup.scrum.managers;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
+import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,20 +26,20 @@ import static org.mockito.Mockito.when;
 public class NumberModelManagerTest {
 
     @Mock
-    private PersistenceManager mPersistenceManager;
+    private PersistenceProxy mPersistenceProxy;
     private NumberModelManager mNumberModelManager;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mNumberModelManager = new NumberModelManager(mPersistenceManager);
+        mNumberModelManager = new NumberModelManager(mPersistenceProxy);
     }
 
     @Test
     public void testSetsCurrentModelToPersistedModel() {
-        when(mPersistenceManager.load(NumberModelManager.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
+        when(mPersistenceProxy.load(NumberModelManager.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
 
-        mNumberModelManager = new NumberModelManager(mPersistenceManager);
+        mNumberModelManager = new NumberModelManager(mPersistenceProxy);
 
         assertEquals(mNumberModelManager.getCurrentModel().getName(), new FibonacciNumberModel().getName());
     }
@@ -55,7 +56,7 @@ public class NumberModelManagerTest {
         boolean result = mNumberModelManager.setCurrentModel(new FibonacciNumberModel().getName());
 
         assertTrue(result);
-        verify(mPersistenceManager).persist(anyString(), anyString());
+        verify(mPersistenceProxy).persist(anyString(), anyString());
     }
 
     @Test
@@ -65,7 +66,7 @@ public class NumberModelManagerTest {
         boolean result = mNumberModelManager.setCurrentModel(new ScrumNumberModel().getName());
 
         assertFalse(result);
-        verify(mPersistenceManager, never()).persist(anyString(), anyString());
+        verify(mPersistenceProxy, never()).persist(anyString(), anyString());
     }
 
 }

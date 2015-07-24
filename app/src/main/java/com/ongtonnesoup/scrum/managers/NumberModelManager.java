@@ -1,5 +1,6 @@
 package com.ongtonnesoup.scrum.managers;
 
+import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
 
@@ -10,13 +11,13 @@ import javax.inject.Inject;
 public class NumberModelManager {
 
     public static final String KEY_MODEL = "KEY_MODEL";
-    protected PersistenceManager mPersitenceManager;
+    protected PersistenceProxy mPersitenceManager;
     private NumberModel mCurrentModel;
     private NumberModelFacade mNumberModelFacade;
 
     @Inject
-    public NumberModelManager(PersistenceManager persistenceManager, NumberModelFacade numberModelFacade) {
-        mPersitenceManager = persistenceManager;
+    public NumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
+        mPersitenceManager = persistenceProxy;
         mNumberModelFacade = numberModelFacade;
         mCurrentModel = load();
         if (mCurrentModel == null) {

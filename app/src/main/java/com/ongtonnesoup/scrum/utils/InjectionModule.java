@@ -13,7 +13,7 @@ import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
-import com.ongtonnesoup.scrum.managers.PersistenceManager;
+import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
@@ -47,8 +47,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModelManager provideNumberModelManager(PersistenceManager persistenceManager, NumberModelFacade numberModelFacade) {
-        return new NumberModelManager(persistenceManager, numberModelFacade);
+    public NumberModelManager provideNumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
+        return new NumberModelManager(persistenceProxy, numberModelFacade);
     }
 
     @Provides
@@ -82,8 +82,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public PersistenceManager providePersistenceManager() {
-        return new PersistenceManager(mContext.getSharedPreferences(PersistenceManager.SHARED_PREFERENCES, Context.MODE_PRIVATE));
+    public PersistenceProxy providePersistenceManager() {
+        return new PersistenceProxy(mContext.getSharedPreferences(PersistenceProxy.SHARED_PREFERENCES, Context.MODE_PRIVATE));
     }
 
     @Provides

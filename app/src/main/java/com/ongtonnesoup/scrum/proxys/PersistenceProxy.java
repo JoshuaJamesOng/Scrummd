@@ -1,14 +1,14 @@
-package com.ongtonnesoup.scrum.managers;
+package com.ongtonnesoup.scrum.proxys;
 
 import android.content.SharedPreferences;
 
-public class PersistenceManager {
+public class PersistenceProxy {
 
     public static final String SHARED_PREFERENCES = "SHARED_PREFERENCES";
 
     private final SharedPreferences mSharedPrefences;
 
-    public PersistenceManager(SharedPreferences sharedPreferences) {
+    public PersistenceProxy(SharedPreferences sharedPreferences) {
         mSharedPrefences = sharedPreferences;
     }
 
