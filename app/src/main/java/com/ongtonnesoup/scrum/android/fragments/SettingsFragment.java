@@ -19,7 +19,7 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
-import com.ongtonnesoup.scrum.managers.ResourceManager;
+import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class SettingsFragment extends DialogFragment {
     @Inject
     protected NumberModelManager mNumberModelManager;
     @Inject
-    protected ResourceManager mResources;
+    protected ResourceProxy mResources;
 
     private int mThemeColor;
     private RadioGroup mRadioGroup;

@@ -1,6 +1,7 @@
 package com.ongtonnesoup.scrum.managers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
 import javax.inject.Inject;
@@ -11,7 +12,7 @@ public class ColourThemeManager {
     private final int[] mFillColors;
     private final int[] mStatusBarColors;
     @Inject
-    ResourceManager mResources;
+    ResourceProxy mResources;
 
     public ColourThemeManager() {
         ScrummdApplication.inject(this);

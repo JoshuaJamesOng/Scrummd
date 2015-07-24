@@ -2,7 +2,7 @@ package com.ongtonnesoup.scrum.decorators;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
-import com.ongtonnesoup.scrum.managers.ResourceManager;
+import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 
 import javax.inject.Inject;
 
@@ -13,7 +13,7 @@ public class NumberModelDecorator {
     @Inject
     protected NumberModelManager mNumberModelManager;
     @Inject
-    protected ResourceManager mResources;
+    protected ResourceProxy mResources;
 
     public NumberModelDecorator() {
         ScrummdApplication.inject(this);

@@ -14,7 +14,7 @@ import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.PersistenceManager;
-import com.ongtonnesoup.scrum.managers.ResourceManager;
+import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 import com.ongtonnesoup.scrum.presenters.MainPresenter;
@@ -31,7 +31,7 @@ import dagger.Provides;
         SettingsFragment.class,
         NumberAdapter.class,
         NumberFragmentPagerAdapter.class,
-        ResourceManager.class,
+        ResourceProxy.class,
         NumberModelDecorator.class,
         NumberModelManager.class,
         MainPresenter.class,
@@ -76,8 +76,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public ResourceManager provideResourceManager() {
-        return new ResourceManager(mContext.getResources());
+    public ResourceProxy provideResourceManager() {
+        return new ResourceProxy(mContext.getResources());
     }
 
     @Provides

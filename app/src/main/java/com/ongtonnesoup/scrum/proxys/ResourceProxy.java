@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.managers;
+package com.ongtonnesoup.scrum.proxys;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,13 +8,13 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 
 import javax.inject.Inject;
 
-public class ResourceManager {
+public class ResourceProxy {
 
     private final Resources mResources;
     @Inject
     protected Context mContext;
 
-    public ResourceManager(Resources resources) {
+    public ResourceProxy(Resources resources) {
         ScrummdApplication.inject(this);
         mResources = resources;
     }

@@ -11,7 +11,7 @@ import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
-import com.ongtonnesoup.scrum.managers.ResourceManager;
+import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ public class NumberFragment extends Fragment {
     @Inject
     protected NumberModelManager mNumberModelManager;
     @Inject
-    protected ResourceManager mResources;
+    protected ResourceProxy mResources;
 
     public static NumberFragment newInstance(String estimate, int colorId) {
         NumberFragment fragment = new NumberFragment();
