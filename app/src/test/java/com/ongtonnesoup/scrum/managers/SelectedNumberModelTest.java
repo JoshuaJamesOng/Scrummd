@@ -1,6 +1,7 @@
 package com.ongtonnesoup.scrum.managers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
 import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
@@ -23,37 +24,37 @@ import static org.mockito.Mockito.when;
 
 @PrepareForTest(ScrummdApplication.class)
 @RunWith(PowerMockRunner.class)
-public class NumberModelManagerTest {
+public class SelectedNumberModelTest {
 
     @Mock
     private PersistenceProxy mPersistenceProxy;
-    private NumberModelManager mNumberModelManager;
+    private SelectedNumberModel mSelectedNumberModel;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mNumberModelManager = new NumberModelManager(mPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mPersistenceProxy);
     }
 
     @Test
     public void testSetsCurrentModelToPersistedModel() {
-        when(mPersistenceProxy.load(NumberModelManager.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
+        when(mPersistenceProxy.load(SelectedNumberModel.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
 
-        mNumberModelManager = new NumberModelManager(mPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mPersistenceProxy);
 
-        assertEquals(mNumberModelManager.getCurrentModel().getName(), new FibonacciNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new FibonacciNumberModel().getName());
     }
 
     @Test
     public void testSetsCurrentModelToScrumIfNoPersistedModel() {
-        assertEquals(mNumberModelManager.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
     }
 
     @Test
     public void testSetCurrentModelReturnsTrueAndPersistsIfNewModelDoesNotEqualCurrentModel() {
-        assertEquals(mNumberModelManager.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
 
-        boolean result = mNumberModelManager.setCurrentModel(new FibonacciNumberModel().getName());
+        boolean result = mSelectedNumberModel.setCurrentModel(new FibonacciNumberModel().getName());
 
         assertTrue(result);
         verify(mPersistenceProxy).persist(anyString(), anyString());
@@ -61,9 +62,9 @@ public class NumberModelManagerTest {
 
     @Test
     public void testSetCurrentModelReturnsFalseIfNewModelEqualsCurrentModel() {
-        assertEquals(mNumberModelManager.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
 
-        boolean result = mNumberModelManager.setCurrentModel(new ScrumNumberModel().getName());
+        boolean result = mSelectedNumberModel.setCurrentModel(new ScrumNumberModel().getName());
 
         assertFalse(result);
         verify(mPersistenceProxy, never()).persist(anyString(), anyString());

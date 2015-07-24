@@ -5,7 +5,7 @@ import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.events.PopupClosed;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
-import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.models.ColoursModel;
 import com.ongtonnesoup.scrum.views.MainView;
 import com.squareup.otto.Subscribe;
 
@@ -18,7 +18,7 @@ public class MainPresenter {
     private final int[] mAccentColors;
 
     @Inject
-    ColourThemeManager mColourThemeManager;
+    ColoursModel mColoursModel;
     @Inject
     ColourBlender mColourBlender;
 
@@ -26,8 +26,8 @@ public class MainPresenter {
     public MainPresenter(MainView view) {
         ScrummdApplication.inject(this);
         mView = view;
-        mSecondaryColors = mColourThemeManager.getBackgroundColors();
-        mAccentColors = mColourThemeManager.getStatusBarColors();
+        mSecondaryColors = mColoursModel.getBackgroundColors();
+        mAccentColors = mColoursModel.getStatusBarColors();
     }
 
     public void showSettings() {
@@ -42,8 +42,8 @@ public class MainPresenter {
 
     public void onDrag(int position, float positionOffset, int positionOffsetPixels) {
         int targetPosition = position + 1;
-        position = mColourThemeManager.getColorForIndex(position);
-        targetPosition = mColourThemeManager.getColorForIndex(targetPosition);
+        position = mColoursModel.getColorForIndex(position);
+        targetPosition = mColoursModel.getColorForIndex(targetPosition);
 
         int background = calculateColor(positionOffset, mSecondaryColors[position], mSecondaryColors[targetPosition]);
         int status = calculateColor(positionOffset, mAccentColors[position], mAccentColors[targetPosition]);

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ public class NumberFragment extends Fragment {
     @InjectView(R.id.image_view)
     protected ImageView mImageView;
     @Inject
-    protected NumberModelManager mNumberModelManager;
+    protected SelectedNumberModel mSelectedNumberModel;
     @Inject
     protected ResourceProxy mResources;
 
@@ -78,7 +78,7 @@ public class NumberFragment extends Fragment {
                 setColor(colorId);
             }
         } else {
-            setEstimate(mNumberModelManager.getCurrentModel().getInitialValue());
+            setEstimate(mSelectedNumberModel.getCurrentModel().getInitialValue());
         }
 
         return view;

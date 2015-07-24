@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
-import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
-import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.domain.decorators.ColourThemeDecorator;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
@@ -17,9 +17,9 @@ import javax.inject.Inject;
 public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Inject
-    protected ColourThemeManager mColourThemeManager;
+    protected ColoursModel mColoursModel;
     @Inject
-    protected NumberModelManager mNumberModelManager;
+    protected SelectedNumberModel mSelectedNumberModel;
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
 
@@ -32,8 +32,8 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         String estimate = mNumberModelDecorator.getNumber(i);
         int resourceId = mNumberModelDecorator.getResourceIdentifier(i);
-        int colorIndex = mColourThemeManager.getColorForIndex(i);
-        ColourTheme theme = mColourThemeManager.generateNewColourTheme(colorIndex);
+        int colorIndex = mColoursModel.getColorForIndex(i);
+        ColourTheme theme = mColoursModel.generateNewColourTheme(colorIndex);
         ColourThemeDecorator themeDecorator = new ColourThemeDecorator(theme);
         NumberFragment fragment;
         if (estimate != null) {
@@ -46,7 +46,7 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumberModelManager.getCurrentModel().getNumbers().length;
+        return mSelectedNumberModel.getCurrentModel().getNumbers().length;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class NumberFragmentPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public int getIndex(String value) {
-        for (int i = 0; i < mNumberModelManager.getCurrentModel().getNumbers().length; i++) {
-            if (mNumberModelManager.getCurrentModel().getNumbers()[i].equalsIgnoreCase(value)) {
+        for (int i = 0; i < mSelectedNumberModel.getCurrentModel().getNumbers().length; i++) {
+            if (mSelectedNumberModel.getCurrentModel().getNumbers()[i].equalsIgnoreCase(value)) {
                 return i;
             }
         }

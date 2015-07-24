@@ -18,7 +18,7 @@ import android.widget.RadioGroup;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.ModelChanged;
-import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class SettingsFragment extends DialogFragment {
     @Inject
     protected Context mContext;
     @Inject
-    protected NumberModelManager mNumberModelManager;
+    protected SelectedNumberModel mSelectedNumberModel;
     @Inject
     protected ResourceProxy mResources;
 
@@ -96,12 +96,12 @@ public class SettingsFragment extends DialogFragment {
     }
 
     private int createModelRadioOptions() {
-        List<String> names = mNumberModelManager.getModelNames();
+        List<String> names = mSelectedNumberModel.getModelNames();
 
         int checked = -1;
         for (int i = 0; i < names.size(); i++) {
             RadioButton option = createRadioOption(names.get(i));
-            if (names.get(i).equalsIgnoreCase(mNumberModelManager.getCurrentModel().getName())) {
+            if (names.get(i).equalsIgnoreCase(mSelectedNumberModel.getCurrentModel().getName())) {
                 checked = i;
             }
             mRadioGroup.addView(option);
@@ -118,7 +118,7 @@ public class SettingsFragment extends DialogFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    if (mNumberModelManager.setCurrentModel("" + buttonView.getText())) {
+                    if (mSelectedNumberModel.setCurrentModel("" + buttonView.getText())) {
                         ScrummdApplication.post(new ModelChanged());
                         dismiss();
                     }

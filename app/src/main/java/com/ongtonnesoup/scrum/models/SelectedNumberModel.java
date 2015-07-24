@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.managers;
+package com.ongtonnesoup.scrum.models;
 
 import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class NumberModelManager {
+public class SelectedNumberModel {
 
     public static final String KEY_MODEL = "KEY_MODEL";
     protected PersistenceProxy mPersitenceManager;
@@ -16,7 +16,7 @@ public class NumberModelManager {
     private NumberModelFacade mNumberModelFacade;
 
     @Inject
-    public NumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
+    public SelectedNumberModel(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
         mPersitenceManager = persistenceProxy;
         mNumberModelFacade = numberModelFacade;
         mCurrentModel = load();

@@ -10,9 +10,9 @@ import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
-import com.ongtonnesoup.scrum.managers.ColourThemeManager;
+import com.ongtonnesoup.scrum.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
-import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
@@ -33,9 +33,9 @@ import dagger.Provides;
         NumberFragmentPagerAdapter.class,
         ResourceProxy.class,
         NumberModelDecorator.class,
-        NumberModelManager.class,
+        SelectedNumberModel.class,
         MainPresenter.class,
-        ColourThemeManager.class},
+        ColoursModel.class},
         library = true, complete = true)
 public class InjectionModule {
 
@@ -47,8 +47,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModelManager provideNumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
-        return new NumberModelManager(persistenceProxy, numberModelFacade);
+    public SelectedNumberModel provideNumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
+        return new SelectedNumberModel(persistenceProxy, numberModelFacade);
     }
 
     @Provides
@@ -70,8 +70,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public ColourThemeManager provideColourThemeManager() {
-        return new ColourThemeManager();
+    public ColoursModel provideColourThemeManager() {
+        return new ColoursModel();
     }
 
     @Provides
