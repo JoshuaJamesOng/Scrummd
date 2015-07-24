@@ -15,7 +15,8 @@ import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.PersistenceManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;
-import com.ongtonnesoup.scrum.models.ColourTheme;
+import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
+import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 import com.ongtonnesoup.scrum.presenters.MainPresenter;
 
 import javax.inject.Singleton;
@@ -46,8 +47,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public NumberModelManager provideNumberModelManager(PersistenceManager persistenceManager) {
-        return new NumberModelManager(persistenceManager);
+    public NumberModelManager provideNumberModelManager(PersistenceManager persistenceManager, NumberModelFacade numberModelFacade) {
+        return new NumberModelManager(persistenceManager, numberModelFacade);
     }
 
     @Provides
@@ -90,4 +91,8 @@ public class InjectionModule {
         return new ArgbEvaluatorFacade();
     }
 
+    @Provides
+    public NumberModelFacade provideNumberModelInteractor() {
+        return new NumberModelFacade();
+    }
 }

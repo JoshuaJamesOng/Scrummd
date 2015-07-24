@@ -1,12 +1,8 @@
 package com.ongtonnesoup.scrum.managers;
 
-import com.ongtonnesoup.scrummd.domain.models.numbermodels.FibonacciNumberModel;
-import com.ongtonnesoup.scrummd.domain.models.numbermodels.NumberModel;
-import com.ongtonnesoup.scrummd.domain.models.numbermodels.ScrumNumberModel;
-import com.ongtonnesoup.scrummd.domain.models.numbermodels.ShirtNumberModel;
+import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
+import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,16 +11,16 @@ public class NumberModelManager {
 
     public static final String KEY_MODEL = "KEY_MODEL";
     protected PersistenceManager mPersitenceManager;
-    private final List<NumberModel> mModels;
     private NumberModel mCurrentModel;
+    private NumberModelFacade mNumberModelFacade;
 
     @Inject
-    public NumberModelManager(PersistenceManager persistenceManager) {
+    public NumberModelManager(PersistenceManager persistenceManager, NumberModelFacade numberModelFacade) {
         mPersitenceManager = persistenceManager;
-        mModels = Arrays.asList(new ScrumNumberModel(), new FibonacciNumberModel(), new ShirtNumberModel());
+        mNumberModelFacade = numberModelFacade;
         mCurrentModel = load();
         if (mCurrentModel == null) {
-            mCurrentModel = mModels.get(0);
+            mCurrentModel = mNumberModelFacade.getDefaultModel();
         }
     }
 
@@ -34,7 +30,7 @@ public class NumberModelManager {
 
     public boolean setCurrentModel(String modelName) {
         boolean modelChanged = false;
-        for (NumberModel model : mModels) {
+        for (NumberModel model : getModels()) {
             if (model.getName().equalsIgnoreCase(modelName)) {
                 if (model != mCurrentModel) {
                     modelChanged = true;
@@ -47,18 +43,18 @@ public class NumberModelManager {
         return modelChanged;
     }
 
+    public List<NumberModel> getModels() {
+        return mNumberModelFacade.getModels();
+    }
+
     public List<String> getModelNames() {
-        List<String> names = new ArrayList<>();
-        for (NumberModel model : mModels) {
-            names.add(model.getName());
-        }
-        return names;
+        return mNumberModelFacade.getModelNames();
     }
 
     private NumberModel load() {
         String modelName = mPersitenceManager.load(KEY_MODEL);
         NumberModel persistedModel = null;
-        for (NumberModel model : mModels) {
+        for (NumberModel model : getModels()) {
             if (model.getName().equalsIgnoreCase(modelName)) {
                 persistedModel = model;
                 break;

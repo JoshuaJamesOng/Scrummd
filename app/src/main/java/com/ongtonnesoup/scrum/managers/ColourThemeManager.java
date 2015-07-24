@@ -1,7 +1,7 @@
 package com.ongtonnesoup.scrum.managers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.ColourTheme;
+import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
 import javax.inject.Inject;
 

@@ -9,7 +9,7 @@ import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
 import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
-import com.ongtonnesoup.scrum.models.ColourTheme;
+import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 
 import javax.inject.Inject;
 

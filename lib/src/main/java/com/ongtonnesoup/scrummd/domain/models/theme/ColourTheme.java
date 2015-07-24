@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.models;
+package com.ongtonnesoup.scrummd.domain.models.theme;
 
 public class ColourTheme {
 
