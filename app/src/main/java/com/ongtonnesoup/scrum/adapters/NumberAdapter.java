@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
+import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 
 import javax.inject.Inject;

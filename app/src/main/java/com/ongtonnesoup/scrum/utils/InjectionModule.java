@@ -11,7 +11,7 @@ import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
 import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
 import com.ongtonnesoup.scrum.managers.ColourThemeManager;
-import com.ongtonnesoup.scrum.managers.NumberModelDecorator;
+import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.managers.NumberModelManager;
 import com.ongtonnesoup.scrum.managers.PersistenceManager;
 import com.ongtonnesoup.scrum.managers.ResourceManager;

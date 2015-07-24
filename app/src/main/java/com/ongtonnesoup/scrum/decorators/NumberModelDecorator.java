@@ -1,6 +1,8 @@
-package com.ongtonnesoup.scrum.managers;
+package com.ongtonnesoup.scrum.decorators;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrum.managers.NumberModelManager;
+import com.ongtonnesoup.scrum.managers.ResourceManager;
 
 import javax.inject.Inject;
 
