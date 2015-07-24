@@ -2,6 +2,7 @@ package com.ongtonnesoup.scrum;
 
 import android.app.Application;
 
+import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
 import com.ongtonnesoup.scrum.utils.InjectionModule;
 import com.squareup.otto.Bus;
 
@@ -11,6 +12,7 @@ public class ScrummdApplication extends Application {
 
     private static Bus mBus;
     private static ObjectGraph mObjectGraph;
+    private ModelChangedObserver mObserver;
 
     public static ObjectGraph getObjectGraph() {
         return mObjectGraph;
@@ -36,6 +38,8 @@ public class ScrummdApplication extends Application {
     public void onCreate() {
         mObjectGraph = ObjectGraph.create(new InjectionModule(getApplicationContext()));
         mBus = new Bus();
+        mObserver = new ModelChangedObserver();
+        register(mObserver);
     }
 
 }

@@ -2,6 +2,8 @@ package com.ongtonnesoup.scrum.utils;
 
 import android.content.Context;
 
+import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
+import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
 import com.ongtonnesoup.scrum.views.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
@@ -35,6 +37,8 @@ import dagger.Provides;
         NumberModelDecorator.class,
         SelectedNumberModel.class,
         MainPresenter.class,
+        SettingsPresenter.class,
+        ModelChangedObserver.class,
         ColoursModel.class},
         library = true, complete = true)
 public class InjectionModule {
@@ -92,6 +96,7 @@ public class InjectionModule {
     }
 
     @Provides
+    @Singleton
     public NumberModelFacade provideNumberModelInteractor() {
         return new NumberModelFacade();
     }

@@ -19,7 +19,10 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
+import com.ongtonnesoup.scrum.views.SettingsView;
+import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class SettingsFragment extends DialogFragment {
+public class SettingsFragment extends DialogFragment implements SettingsView {
 
     private static final String KEY_BACKGROUND_COLOR = "KEY_Background_Color";
 
@@ -39,10 +42,12 @@ public class SettingsFragment extends DialogFragment {
     @Inject
     protected SelectedNumberModel mSelectedNumberModel;
     @Inject
-    protected ResourceProxy mResources;
+    protected ResourceProxy mResourcesProxy;
 
     private int mThemeColor;
     private RadioGroup mRadioGroup;
+    private SettingsPresenter mPresenter;
+    private SettingsViewBuilder mBuilder;
 
     public static SettingsFragment newInstance(int color) {
         SettingsFragment fragment = new SettingsFragment();
@@ -56,6 +61,8 @@ public class SettingsFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScrummdApplication.inject(this);
+        mPresenter = new SettingsPresenter(this);
+        mBuilder = new SettingsViewBuilder();
     }
 
     @Nullable
@@ -75,10 +82,7 @@ public class SettingsFragment extends DialogFragment {
             }
         }
 
-        mRadioGroup = new RadioGroup(mContext);
-        int checked = createModelRadioOptions();
-        checkCurrentModel(mRadioGroup, checked);
-        mOptionsContainer.addView(mRadioGroup);
+        mPresenter.getModelOptions();
 
         return view;
     }
@@ -95,46 +99,57 @@ public class SettingsFragment extends DialogFragment {
         super.onPause();
     }
 
-    private int createModelRadioOptions() {
-        List<String> names = mSelectedNumberModel.getModelNames();
-
-        int checked = -1;
-        for (int i = 0; i < names.size(); i++) {
-            RadioButton option = createRadioOption(names.get(i));
-            if (names.get(i).equalsIgnoreCase(mSelectedNumberModel.getCurrentModel().getName())) {
-                checked = i;
-            }
-            mRadioGroup.addView(option);
-        }
-
-        return checked;
+    @Override
+    public void showModelOptions(List<String> models) {
+        mRadioGroup = new RadioGroup(mContext);
+        int checked = mBuilder.createModelRadioOptions(models);
+        mBuilder.checkCurrentModel(mRadioGroup, checked);
+        mOptionsContainer.addView(mRadioGroup);
     }
 
-    private RadioButton createRadioOption(String title) {
-        RadioButton button = new RadioButton(mContext);
-        button.setText(title.toUpperCase());
-        button.setTextColor(mResources.getPrimaryTextColor());
-        button.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (mSelectedNumberModel.setCurrentModel("" + buttonView.getText())) {
-                        ScrummdApplication.post(new ModelChanged());
-                        dismiss();
+    private class SettingsViewBuilder {
+
+        private int createModelRadioOptions(List<String> models) {
+
+            int checked = -1;
+            for (int i = 0; i < models.size(); i++) {
+                RadioButton option = createRadioOption(models.get(i));
+                if (models.get(i).equalsIgnoreCase(mSelectedNumberModel.getCurrentModel().getName())) {
+                    checked = i;
+                }
+                mRadioGroup.addView(option);
+            }
+
+            return checked;
+        }
+
+        private RadioButton createRadioOption(String title) {
+            RadioButton button = new RadioButton(mContext);
+            button.setText(title.toUpperCase());
+            button.setTextColor(mResourcesProxy.getPrimaryTextColor());
+            button.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        String name = "" + buttonView.getText();
+                        NumberModel model = mPresenter.getModelForName(name);
+                        if (mSelectedNumberModel.setCurrentModel(model)) {
+                            ScrummdApplication.post(new ModelChanged(model));
+                            dismiss();
+                        }
                     }
                 }
+            });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                button.setButtonTintList(ColorStateList.valueOf(mThemeColor));
             }
-        });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            button.setButtonTintList(ColorStateList.valueOf(mThemeColor));
+            return button;
         }
-        return button;
-    }
 
-    private void checkCurrentModel(RadioGroup radioGroup, int checkedIndex) {
-        if (checkedIndex > -1) {
-            radioGroup.check(radioGroup.getChildAt(checkedIndex).getId());
+        private void checkCurrentModel(RadioGroup radioGroup, int checkedIndex) {
+            if (checkedIndex > -1) {
+                radioGroup.check(radioGroup.getChildAt(checkedIndex).getId());
+            }
         }
     }
-
 }
