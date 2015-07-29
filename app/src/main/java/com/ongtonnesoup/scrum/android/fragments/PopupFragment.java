@@ -83,7 +83,6 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     @Override
     public void onResume() {
         super.onResume();
-        ScrummdApplication.register(this);
     }
 
     @Override
@@ -105,7 +104,6 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onPause() {
-        ScrummdApplication.unregister(this);
         super.onPause();
     }
 
