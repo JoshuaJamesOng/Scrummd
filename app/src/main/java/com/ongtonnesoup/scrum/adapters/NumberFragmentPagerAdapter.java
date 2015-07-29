@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
+import com.ongtonnesoup.scrum.views.NumberFragment;
 import com.ongtonnesoup.scrum.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;

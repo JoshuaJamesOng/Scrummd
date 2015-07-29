@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.android.fragments;
+package com.ongtonnesoup.scrum.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -10,7 +10,7 @@ import com.ongtonnesoup.scrum.views.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;
-import com.ongtonnesoup.scrum.android.fragments.NumberFragment;
+import com.ongtonnesoup.scrum.views.NumberFragment;
 import com.ongtonnesoup.scrum.views.PopupFragment;
 import com.ongtonnesoup.scrum.views.SettingsFragment;
 import com.ongtonnesoup.scrum.interfaces.ColourBlender;
