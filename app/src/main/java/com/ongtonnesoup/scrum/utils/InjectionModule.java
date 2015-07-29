@@ -3,9 +3,9 @@ package com.ongtonnesoup.scrum.utils;
 import android.content.Context;
 
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
-import com.ongtonnesoup.scrum.presenters.NumberPresenter;
-import com.ongtonnesoup.scrum.presenters.PopupPresenter;
-import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.NumberPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.PopupPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.SettingsPresenter;
 import com.ongtonnesoup.scrum.views.MainActivity;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
@@ -21,7 +21,7 @@ import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
-import com.ongtonnesoup.scrum.presenters.MainPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.MainPresenter;
 
 import javax.inject.Singleton;
 

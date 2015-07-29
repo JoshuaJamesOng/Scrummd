@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.presenters;
+package com.ongtonnesoup.scrummd.presentation.presenters;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;

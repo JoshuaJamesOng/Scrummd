@@ -20,7 +20,7 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
-import com.ongtonnesoup.scrum.presenters.MainPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.MainPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

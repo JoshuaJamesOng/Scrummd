@@ -18,7 +18,7 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.presenters.PopupPresenter;
+import com.ongtonnesoup.scrummd.presentation.presenters.PopupPresenter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
