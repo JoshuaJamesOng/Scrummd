@@ -2,6 +2,7 @@ package com.ongtonnesoup.scrum.presenters;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrum.views.NumberView;
 
 import javax.inject.Inject;
 
