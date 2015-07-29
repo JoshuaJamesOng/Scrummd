@@ -1,8 +1,9 @@
 package com.ongtonnesoup.scrum.observers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.events.ModelChanged;
-import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
+import com.ongtonnesoup.scrummd.presentation.events.ModelChanged;
+import com.ongtonnesoup.scrum.proxys.AndroidPersistenceProxy;
+import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ public class ModelChangedObserver {
     @Subscribe
     public void onModelChanged(ModelChanged event) {
         if (event != null) {
-            mPersistence.persist(PersistenceProxy.KEY_MODEL, event.getModel());
+            mPersistence.persist(AndroidPersistenceProxy.KEY_MODEL, event.getModel());
         }
     }
 }

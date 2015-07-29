@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.views.NumberFragment;
-import com.ongtonnesoup.scrum.models.ColoursModel;
+import com.ongtonnesoup.scrummd.presentation.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.domain.decorators.ColourThemeDecorator;
 import com.ongtonnesoup.scrummd.domain.factorys.ColourThemeFactory;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;

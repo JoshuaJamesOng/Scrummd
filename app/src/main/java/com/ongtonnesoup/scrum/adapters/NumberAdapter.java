@@ -11,7 +11,7 @@ import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 
 import javax.inject.Inject;
 

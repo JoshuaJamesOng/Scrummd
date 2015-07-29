@@ -1,7 +1,8 @@
-package com.ongtonnesoup.scrum.presenters;
+package com.ongtonnesoup.scrummd.presentation.presenters;
 
-import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.PresentationModule;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.views.NumberView;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,7 @@ public class NumberPresenter {
     private int mIcon;
 
     public NumberPresenter(NumberView view) {
-        ScrummdApplication.inject(this);
+        PresentationModule.inject(this);
         mView = view;
     }
 

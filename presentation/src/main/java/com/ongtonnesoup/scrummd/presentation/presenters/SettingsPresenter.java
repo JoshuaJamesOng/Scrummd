@@ -1,10 +1,10 @@
-package com.ongtonnesoup.scrum.presenters;
+package com.ongtonnesoup.scrummd.presentation.presenters;
 
-import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.views.SettingsView;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
+import com.ongtonnesoup.scrummd.presentation.PresentationModule;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.views.SettingsView;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class SettingsPresenter {
     private final SettingsView mView;
 
     public SettingsPresenter(SettingsView view) {
-        ScrummdApplication.inject(this);
+        PresentationModule.inject(this);
         mView = view;
     }
 

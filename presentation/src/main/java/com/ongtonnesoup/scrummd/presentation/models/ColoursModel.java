@@ -1,8 +1,6 @@
-package com.ongtonnesoup.scrum.models;
+package com.ongtonnesoup.scrummd.presentation.models;
 
-import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.proxys.ResourceProxy;
-import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
+import com.ongtonnesoup.scrummd.presentation.PresentationModule;
 
 import javax.inject.Inject;
 
@@ -15,7 +13,7 @@ public class ColoursModel {
     ResourceProxy mResources;
 
     public ColoursModel() {
-        ScrummdApplication.inject(this);
+        PresentationModule.inject(this);
         mBackgroundColors = mResources.getBackgroundColors();
         mFillColors = mResources.getFillColors();
         mStatusBarColors = mResources.getStatusBarColors();

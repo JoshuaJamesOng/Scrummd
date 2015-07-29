@@ -17,11 +17,13 @@ import android.widget.RadioGroup;
 
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.events.ModelChanged;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
-import com.ongtonnesoup.scrum.proxys.ResourceProxy;
+import com.ongtonnesoup.scrummd.presentation.events.ModelChanged;
+import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.presenters.SettingsPresenter;
+import com.ongtonnesoup.scrum.proxys.AndroidResourceProxy;
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
+import com.ongtonnesoup.scrummd.presentation.views.SettingsView;
 
 import java.util.List;
 

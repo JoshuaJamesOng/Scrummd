@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.presenters;
+package com.ongtonnesoup.scrummd.presentation.views;
 
 public interface NumberView {
 

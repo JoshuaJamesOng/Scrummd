@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.interfaces;
+package com.ongtonnesoup.scrummd.presentation.interfaces;
 
 public interface ColourBlender {
 
