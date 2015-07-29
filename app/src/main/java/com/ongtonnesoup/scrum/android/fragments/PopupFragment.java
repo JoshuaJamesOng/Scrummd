@@ -33,7 +33,6 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
     private static final String KEY_TEXT_COLOR = "KEY_Text_Color";
 
     protected PopupPresenter mPresenter;
-    protected NumberAdapter mAdapter;
     protected int mTextColor;
 
     public static PopupFragment newInstance(int y, int color) {
@@ -109,8 +108,8 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
 
     @Override
     public void showModel(SelectedNumberModel model) {
-        mAdapter = new NumberAdapter(model, mTextColor);
-        mGridView.setAdapter(mAdapter);
+        NumberAdapter adapter = new NumberAdapter(model, mTextColor);
+        mGridView.setAdapter(adapter);
         mGridView.setOnItemClickListener(this);
         onPopupOpen();
     }
