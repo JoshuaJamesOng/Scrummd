@@ -87,18 +87,13 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
     @Override
     public void onStart() {
         super.onStart();
-
-        Window window = getDialog().getWindow();
-        WindowManager.LayoutParams windowParams = window.getAttributes();
-        windowParams.dimAmount = 0.0f;
-        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        window.setAttributes(windowParams);
+        removeBackgroundDim();
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+        mPresenter.onPopupClosed();
         super.onDismiss(dialog);
-        ScrummdApplication.post(new PopupClosed());
     }
 
     @Override
@@ -110,16 +105,6 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mPresenter.onEstimateSelected(position);
-    }
-
-    private void setPosition(int y) {
-        Window window = getDialog().getWindow();
-        WindowManager.LayoutParams layoutParams = window.getAttributes();
-
-        layoutParams.gravity = Gravity.BOTTOM | Gravity.END;
-        layoutParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        layoutParams.y = y;
-        window.setAttributes(layoutParams);
     }
 
     @Override
@@ -139,5 +124,23 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
         Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom);
         mGridView.setAnimation(anim);
         anim.start();
+    }
+
+    private void setPosition(int y) {
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.END;
+        layoutParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.y = y;
+        window.setAttributes(layoutParams);
+    }
+
+    private void removeBackgroundDim() {
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        windowParams.dimAmount = 0.0f;
+        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(windowParams);
     }
 }
