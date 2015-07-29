@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.android.fragments;
+package com.ongtonnesoup.scrum.views;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -21,7 +21,6 @@ import com.ongtonnesoup.scrum.events.ModelChanged;
 import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
 import com.ongtonnesoup.scrum.proxys.ResourceProxy;
-import com.ongtonnesoup.scrum.views.SettingsView;
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
 
 import java.util.List;

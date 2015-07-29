@@ -19,11 +19,9 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
 import com.ongtonnesoup.scrum.android.fragments.PopupFragment;
-import com.ongtonnesoup.scrum.android.fragments.SettingsFragment;
 import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
 import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
 import com.ongtonnesoup.scrum.presenters.MainPresenter;
-import com.ongtonnesoup.scrum.views.MainView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
