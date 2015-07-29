@@ -10,15 +10,13 @@ import android.widget.ImageView;
 import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.proxys.ResourceProxy;
-
-import javax.inject.Inject;
+import com.ongtonnesoup.scrum.presenters.NumberPresenter;
+import com.ongtonnesoup.scrum.presenters.NumberView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class NumberFragment extends Fragment {
+public class NumberFragment extends Fragment implements NumberView {
 
     private static final String KEY_ESTIMATE = "KEY_Estimate";
     private static final String KEY_COLOR_ID = "KEY_Color_Id";
@@ -28,10 +26,8 @@ public class NumberFragment extends Fragment {
     protected CircleView mCircleView;
     @InjectView(R.id.image_view)
     protected ImageView mImageView;
-    @Inject
-    protected SelectedNumberModel mSelectedNumberModel;
-    @Inject
-    protected ResourceProxy mResources;
+
+    private NumberPresenter mPresenter;
 
     public static NumberFragment newInstance(String estimate, int colorId) {
         NumberFragment fragment = new NumberFragment();
@@ -55,6 +51,7 @@ public class NumberFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScrummdApplication.inject(this);
+        mPresenter = new NumberPresenter(this);
     }
 
     @Override
@@ -68,18 +65,18 @@ public class NumberFragment extends Fragment {
         if (arguments != null) {
             if (arguments.containsKey(KEY_ESTIMATE)) {
                 String estimate = arguments.getString(KEY_ESTIMATE);
-                setEstimate(estimate);
+                mPresenter.setEstimate(estimate);
             } else if (arguments.containsKey(KEY_RESOURCE_ID)) {
                 int resourceId = arguments.getInt(KEY_RESOURCE_ID);
-                setIcon(resourceId);
+                mPresenter.setIcon(resourceId);
             }
             if (arguments.containsKey(KEY_COLOR_ID)) {
                 int colorId = arguments.getInt(KEY_COLOR_ID);
                 setColor(colorId);
             }
-        } else {
-            setEstimate(mSelectedNumberModel.getCurrentModel().getInitialValue());
         }
+
+        mPresenter.onNumberCreated();
 
         return view;
     }
@@ -96,18 +93,21 @@ public class NumberFragment extends Fragment {
         super.onPause();
     }
 
-    private void setEstimate(String number) {
+    @Override
+    public void showEstimate(String number) {
         mCircleView.setTitleText(number);
         mImageView.setVisibility(View.INVISIBLE);
     }
 
-    private void setIcon(int resourceId) {
+    @Override
+    public void showIcon(int resourceId) {
         mImageView.setBackgroundResource(resourceId);
         mImageView.setVisibility(View.VISIBLE);
         mCircleView.setTitleText("");
     }
 
-    private void setColor(int color) {
+    @Override
+    public void setColor(int color) {
         mCircleView.setFillColor(color);
         mCircleView.setStrokeColor(color);
     }

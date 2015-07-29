@@ -3,6 +3,7 @@ package com.ongtonnesoup.scrum.utils;
 import android.content.Context;
 
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
+import com.ongtonnesoup.scrum.presenters.NumberPresenter;
 import com.ongtonnesoup.scrum.presenters.PopupPresenter;
 import com.ongtonnesoup.scrum.presenters.SettingsPresenter;
 import com.ongtonnesoup.scrum.views.MainActivity;
@@ -40,6 +41,7 @@ import dagger.Provides;
         MainPresenter.class,
         SettingsPresenter.class,
         PopupPresenter.class,
+        NumberPresenter.class,
         ModelChangedObserver.class,
         ColoursModel.class},
         library = true, complete = true)
