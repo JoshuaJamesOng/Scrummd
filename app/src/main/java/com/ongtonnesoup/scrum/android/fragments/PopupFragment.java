@@ -17,19 +17,16 @@ import android.widget.GridView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
-import com.ongtonnesoup.scrum.events.EstimateSelected;
 import com.ongtonnesoup.scrum.events.PopupClosed;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrum.presenters.PopupPresenter;
+import com.ongtonnesoup.scrum.views.PopupView;
 
-import javax.inject.Inject;
-
-public class PopupFragment extends DialogFragment implements AdapterView.OnItemClickListener {
+public class PopupFragment extends DialogFragment implements PopupView, AdapterView.OnItemClickListener {
 
     private static final String KEY_Y_POS = "KEY_Y_Pos";
     private static final String KEY_TEXT_COLOR = "KEY_Text_Color";
 
-    @Inject
-    protected SelectedNumberModel mSelectedNumberModel;
+    protected PopupPresenter mPresenter;
     protected GridView mGridview;
     protected NumberAdapter mAdapter;
     protected int mTextColor;
@@ -47,6 +44,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScrummdApplication.inject(this);
+        mPresenter = new PopupPresenter(this);
     }
 
     @Override
@@ -83,6 +81,7 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
     @Override
     public void onResume() {
         super.onResume();
+        ScrummdApplication.register(mPresenter);
     }
 
     @Override
@@ -104,15 +103,13 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onPause() {
+        ScrummdApplication.unregister(mPresenter);
         super.onPause();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedEstimate = mSelectedNumberModel.getCurrentModel().getNumbers()[position];
-        ScrummdApplication.post(new EstimateSelected(selectedEstimate));
-        ScrummdApplication.post(new PopupClosed());
-        dismiss();
+        mPresenter.onEstimateSelected(position);
     }
 
     private void setPosition(int y) {
@@ -125,4 +122,8 @@ public class PopupFragment extends DialogFragment implements AdapterView.OnItemC
         window.setAttributes(layoutParams);
     }
 
+    @Override
+    public void closePopup() {
+        dismiss();
+    }
 }
