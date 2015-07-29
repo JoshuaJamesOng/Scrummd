@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
 import com.ongtonnesoup.scrum.utils.InjectionModule;
+import com.ongtonnesoup.scrummd.presentation.PresentationModule;
 import com.squareup.otto.Bus;
 
 import dagger.ObjectGraph;
@@ -40,6 +41,8 @@ public class ScrummdApplication extends Application {
         mBus = new Bus();
         mObserver = new ModelChangedObserver();
         register(mObserver);
+        PresentationModule.setObjectGraph(mObjectGraph);
+        PresentationModule.setBus(mBus);
     }
 
 }

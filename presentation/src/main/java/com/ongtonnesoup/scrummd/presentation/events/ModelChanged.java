@@ -1,4 +1,4 @@
-package com.ongtonnesoup.scrum.events;
+package com.ongtonnesoup.scrummd.presentation.events;
 
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
 

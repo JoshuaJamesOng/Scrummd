@@ -1,6 +1,6 @@
 package com.ongtonnesoup.scrummd.presentation.views;
 
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 
 public interface PopupView {
 

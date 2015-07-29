@@ -11,6 +11,7 @@ import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrummd.presentation.presenters.NumberPresenter;
+import com.ongtonnesoup.scrummd.presentation.views.NumberView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

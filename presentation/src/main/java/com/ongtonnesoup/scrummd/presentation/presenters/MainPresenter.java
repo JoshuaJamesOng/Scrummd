@@ -1,12 +1,12 @@
 package com.ongtonnesoup.scrummd.presentation.presenters;
 
-import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.events.EstimateSelected;
-import com.ongtonnesoup.scrum.events.ModelChanged;
-import com.ongtonnesoup.scrum.events.PopupClosed;
-import com.ongtonnesoup.scrum.interfaces.ColourBlender;
-import com.ongtonnesoup.scrum.models.ColoursModel;
-import com.ongtonnesoup.scrum.views.MainView;
+import com.ongtonnesoup.scrummd.presentation.PresentationModule;
+import com.ongtonnesoup.scrummd.presentation.events.EstimateSelected;
+import com.ongtonnesoup.scrummd.presentation.events.ModelChanged;
+import com.ongtonnesoup.scrummd.presentation.events.PopupClosed;
+import com.ongtonnesoup.scrummd.presentation.interfaces.ColourBlender;
+import com.ongtonnesoup.scrummd.presentation.models.ColoursModel;
+import com.ongtonnesoup.scrummd.presentation.views.MainView;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ public class MainPresenter {
 
 
     public MainPresenter(MainView view) {
-        ScrummdApplication.inject(this);
+        PresentationModule.inject(this);
         mView = view;
         mSecondaryColors = mColoursModel.getBackgroundColors();
         mAccentColors = mColoursModel.getStatusBarColors();

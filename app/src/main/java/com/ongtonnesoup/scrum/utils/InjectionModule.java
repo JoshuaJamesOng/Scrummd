@@ -3,6 +3,8 @@ package com.ongtonnesoup.scrum.utils;
 import android.content.Context;
 
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
+import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
 import com.ongtonnesoup.scrummd.presentation.presenters.NumberPresenter;
 import com.ongtonnesoup.scrummd.presentation.presenters.PopupPresenter;
 import com.ongtonnesoup.scrummd.presentation.presenters.SettingsPresenter;
@@ -13,12 +15,12 @@ import com.ongtonnesoup.scrum.facades.ArgbEvaluatorFacade;
 import com.ongtonnesoup.scrum.views.NumberFragment;
 import com.ongtonnesoup.scrum.views.PopupFragment;
 import com.ongtonnesoup.scrum.views.SettingsFragment;
-import com.ongtonnesoup.scrum.interfaces.ColourBlender;
-import com.ongtonnesoup.scrum.models.ColoursModel;
+import com.ongtonnesoup.scrummd.presentation.interfaces.ColourBlender;
+import com.ongtonnesoup.scrummd.presentation.models.ColoursModel;
 import com.ongtonnesoup.scrum.decorators.NumberModelDecorator;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
-import com.ongtonnesoup.scrum.proxys.ResourceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
+import com.ongtonnesoup.scrum.proxys.AndroidPersistenceProxy;
+import com.ongtonnesoup.scrum.proxys.AndroidResourceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.theme.ColourTheme;
 import com.ongtonnesoup.scrummd.presentation.presenters.MainPresenter;
@@ -35,7 +37,7 @@ import dagger.Provides;
         SettingsFragment.class,
         NumberAdapter.class,
         NumberFragmentPagerAdapter.class,
-        ResourceProxy.class,
+        AndroidResourceProxy.class,
         NumberModelDecorator.class,
         SelectedNumberModel.class,
         MainPresenter.class,
@@ -55,8 +57,8 @@ public class InjectionModule {
 
     @Provides
     @Singleton
-    public SelectedNumberModel provideNumberModelManager(PersistenceProxy persistenceProxy, NumberModelFacade numberModelFacade) {
-        return new SelectedNumberModel(persistenceProxy, numberModelFacade);
+    public SelectedNumberModel provideNumberModelManager(PersistenceProxy androidPersistenceProxy, NumberModelFacade numberModelFacade) {
+        return new SelectedNumberModel(androidPersistenceProxy, numberModelFacade);
     }
 
     @Provides
@@ -85,13 +87,13 @@ public class InjectionModule {
     @Provides
     @Singleton
     public ResourceProxy provideResourceManager() {
-        return new ResourceProxy(mContext.getResources());
+        return new AndroidResourceProxy(mContext.getResources());
     }
 
     @Provides
     @Singleton
-    public PersistenceProxy providePersistenceManager() {
-        return new PersistenceProxy(mContext.getSharedPreferences(PersistenceProxy.SHARED_PREFERENCES, Context.MODE_PRIVATE));
+    public PersistenceProxy providePersistenceProxy() {
+        return new AndroidPersistenceProxy(mContext.getSharedPreferences(AndroidPersistenceProxy.SHARED_PREFERENCES, Context.MODE_PRIVATE));
     }
 
     @Provides

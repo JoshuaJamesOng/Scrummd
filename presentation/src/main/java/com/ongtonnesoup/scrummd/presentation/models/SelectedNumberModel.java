@@ -1,8 +1,8 @@
-package com.ongtonnesoup.scrum.models;
+package com.ongtonnesoup.scrummd.presentation.models;
 
-import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.numbers.NumberModel;
+import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
 
 import javax.inject.Inject;
 
@@ -36,7 +36,7 @@ public class SelectedNumberModel {
     }
 
     private NumberModel load() {
-        String modelName = mPersitenceManager.load(PersistenceProxy.KEY_MODEL);
+        String modelName = mPersitenceManager.loadModel();
         NumberModel persistedModel = null;
         for (NumberModel model : mNumberModelFacade.getModels()) {
             if (model.getName().equalsIgnoreCase(modelName)) {

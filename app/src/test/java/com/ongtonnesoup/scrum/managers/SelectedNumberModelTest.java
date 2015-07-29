@@ -1,10 +1,11 @@
 package com.ongtonnesoup.scrum.managers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
+import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
-import com.ongtonnesoup.scrum.proxys.PersistenceProxy;
+import com.ongtonnesoup.scrum.proxys.AndroidPersistenceProxy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,20 +28,20 @@ import static org.mockito.Mockito.when;
 public class SelectedNumberModelTest {
 
     @Mock
-    private PersistenceProxy mPersistenceProxy;
+    private PersistenceProxy mAndroidPersistenceProxy;
     private SelectedNumberModel mSelectedNumberModel;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mSelectedNumberModel = new SelectedNumberModel(mPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy);
     }
 
     @Test
     public void testSetsCurrentModelToPersistedModel() {
-        when(mPersistenceProxy.load(SelectedNumberModel.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
+        when(mAndroidPersistenceProxy.loadModel(SelectedNumberModel.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
 
-        mSelectedNumberModel = new SelectedNumberModel(mPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy);
 
         assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new FibonacciNumberModel().getName());
     }
@@ -57,7 +58,7 @@ public class SelectedNumberModelTest {
         boolean result = mSelectedNumberModel.setCurrentModel(new FibonacciNumberModel().getName());
 
         assertTrue(result);
-        verify(mPersistenceProxy).persist(anyString(), anyString());
+        verify(mAndroidPersistenceProxy).persist(anyString(), anyString());
     }
 
     @Test
@@ -67,7 +68,7 @@ public class SelectedNumberModelTest {
         boolean result = mSelectedNumberModel.setCurrentModel(new ScrumNumberModel().getName());
 
         assertFalse(result);
-        verify(mPersistenceProxy, never()).persist(anyString(), anyString());
+        verify(mAndroidPersistenceProxy, never()).persist(anyString(), anyString());
     }
 
 }

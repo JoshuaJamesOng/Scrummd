@@ -1,8 +1,9 @@
 package com.ongtonnesoup.scrum.decorators;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
-import com.ongtonnesoup.scrum.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.proxys.ResourceProxy;
+import com.ongtonnesoup.scrum.proxys.AndroidResourceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
+import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 
 import javax.inject.Inject;
 
@@ -35,7 +36,7 @@ public class NumberModelDecorator {
 
         if (number.contains(RESOURCE_IDENTIFIER)) {
             String resourceName = number.substring(RESOURCE_IDENTIFIER.length());
-            resourceId = mResources.findResourceIdentifier(resourceName);
+            resourceId = ((AndroidResourceProxy) mResources).findResourceIdentifier(resourceName);
         }
 
         return resourceId;
