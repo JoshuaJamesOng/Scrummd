@@ -18,16 +18,21 @@ import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberAdapter;
 import com.ongtonnesoup.scrum.events.PopupClosed;
+import com.ongtonnesoup.scrum.models.SelectedNumberModel;
 import com.ongtonnesoup.scrum.presenters.PopupPresenter;
 import com.ongtonnesoup.scrum.views.PopupView;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class PopupFragment extends DialogFragment implements PopupView, AdapterView.OnItemClickListener {
+
+    @InjectView(R.id.number_selection_gridview) GridView mGridView;
 
     private static final String KEY_Y_POS = "KEY_Y_Pos";
     private static final String KEY_TEXT_COLOR = "KEY_Text_Color";
 
     protected PopupPresenter mPresenter;
-    protected GridView mGridview;
     protected NumberAdapter mAdapter;
     protected int mTextColor;
 
@@ -50,11 +55,13 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         getDialog().setCanceledOnTouchOutside(true);
 
         View view = inflater.inflate(R.layout.fragment_popup, container);
+        ButterKnife.inject(this, view);
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -66,14 +73,7 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
             }
         }
 
-        mGridview = (GridView) view.findViewById(R.id.number_selection_gridview);
-        mAdapter = new NumberAdapter(mTextColor);
-        mGridview.setAdapter(mAdapter);
-        mGridview.setOnItemClickListener(this);
-
-        Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom);
-        mGridview.setAnimation(anim);
-        anim.start();
+        mPresenter.onPopupCreated();
 
         return view;
     }
@@ -123,7 +123,21 @@ public class PopupFragment extends DialogFragment implements PopupView, AdapterV
     }
 
     @Override
+    public void showModel(SelectedNumberModel model) {
+        mAdapter = new NumberAdapter(model, mTextColor);
+        mGridView.setAdapter(mAdapter);
+        mGridView.setOnItemClickListener(this);
+        onPopupOpen();
+    }
+
+    @Override
     public void closePopup() {
         dismiss();
+    }
+
+    private void onPopupOpen() {
+        Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom);
+        mGridView.setAnimation(anim);
+        anim.start();
     }
 }

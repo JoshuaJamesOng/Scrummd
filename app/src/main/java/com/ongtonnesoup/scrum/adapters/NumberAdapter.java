@@ -17,21 +17,23 @@ import javax.inject.Inject;
 
 public class NumberAdapter extends BaseAdapter {
 
+    private final SelectedNumberModel mModel;
     private final int mColor;
+
     @Inject
     protected Context mContext;
-    @Inject
-    protected SelectedNumberModel mSelectedNumberModel;
+
     @Inject
     protected NumberModelDecorator mNumberModelDecorator;
 
-    public NumberAdapter(int textColorId) {
+    public NumberAdapter(SelectedNumberModel model, int textColorId) {
         ScrummdApplication.inject(this);
+        mModel = model;
         mColor = textColorId;
     }
 
     public int getCount() {
-        return mSelectedNumberModel.getCurrentModel().getNumbers().length;
+        return mModel.getCurrentModel().getNumbers().length;
     }
 
     public Object getItem(int position) {
@@ -63,7 +65,7 @@ public class NumberAdapter extends BaseAdapter {
         int resourceId = mNumberModelDecorator.getResourceIdentifier(position);
 
         if (estimate != null) {
-            viewHolder.circleView.setTitleText(mSelectedNumberModel.getCurrentModel().getNumbers()[position]);
+            viewHolder.circleView.setTitleText(mModel.getCurrentModel().getNumbers()[position]);
             viewHolder.imageView.setVisibility(View.GONE);
         } else {
             viewHolder.circleView.setTitleText("");

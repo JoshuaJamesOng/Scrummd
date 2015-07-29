@@ -20,10 +20,15 @@ public class PopupPresenter {
         mView = view;
     }
 
+    public void onPopupCreated() {
+        mView.showModel(mSelectedNumberModel);
+    }
+
     public void onEstimateSelected(int position) {
         String selectedEstimate = mSelectedNumberModel.getCurrentModel().getNumbers()[position];
         ScrummdApplication.post(new EstimateSelected(selectedEstimate));
         ScrummdApplication.post(new PopupClosed());
         mView.closePopup();
     }
+
 }
