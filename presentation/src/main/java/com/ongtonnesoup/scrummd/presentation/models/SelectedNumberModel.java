@@ -28,7 +28,7 @@ public class SelectedNumberModel {
 
     public boolean setCurrentModel(NumberModel model) {
         boolean changed = false;
-        if (model != mCurrentModel) {
+        if (!model.equals(mCurrentModel)) {
             changed = true;
             mCurrentModel = model;
         }
