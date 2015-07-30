@@ -36,14 +36,18 @@ public class SelectedNumberModel {
     }
 
     private NumberModel load() {
-        String modelName = mPersitenceManager.loadModel();
         NumberModel persistedModel = null;
-        for (NumberModel model : mNumberModelFacade.getModels()) {
-            if (model.getName().equalsIgnoreCase(modelName)) {
-                persistedModel = model;
-                break;
+        String modelName = mPersitenceManager.loadModel();
+
+        if (modelName != null) {
+            for (NumberModel model : mNumberModelFacade.getModels()) {
+                if (model.getName().equalsIgnoreCase(modelName)) {
+                    persistedModel = model;
+                    break;
+                }
             }
         }
+
         return persistedModel;
     }
 }
