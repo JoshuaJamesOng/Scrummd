@@ -4,6 +4,7 @@ import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
 import com.ongtonnesoup.scrummd.domain.models.numbers.FibonacciNumberModel;
 import com.ongtonnesoup.scrummd.domain.models.numbers.ScrumNumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbers.ShirtNumberModel;
 import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 
@@ -14,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,11 +34,19 @@ public class SelectedNumberModelTest {
     private PersistenceProxy mAndroidPersistenceProxy;
     @Mock
     private NumberModelFacade mNumberModelFacade;
+    @Mock
+    private ScrumNumberModel mScrumNumberModel;
+
     private SelectedNumberModel mSelectedNumberModel;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        when(mNumberModelFacade.getModels()).thenReturn(Arrays.asList(mScrumNumberModel, new FibonacciNumberModel(), new ShirtNumberModel()));
+        when(mNumberModelFacade.getDefaultModel()).thenReturn(mScrumNumberModel);
+        when(mScrumNumberModel.getName()).thenReturn("Dummy");
+
         mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy, mNumberModelFacade);
     }
 
@@ -65,9 +76,9 @@ public class SelectedNumberModelTest {
 
     @Test
     public void testSetCurrentModelReturnsFalseIfNewModelEqualsCurrentModel() {
-        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), mScrumNumberModel.getName());
 
-        boolean result = mSelectedNumberModel.setCurrentModel(new ScrumNumberModel());
+        boolean result = mSelectedNumberModel.setCurrentModel(mScrumNumberModel);
 
         assertFalse(result);
         verify(mAndroidPersistenceProxy, never()).persist(anyString(), anyString());
