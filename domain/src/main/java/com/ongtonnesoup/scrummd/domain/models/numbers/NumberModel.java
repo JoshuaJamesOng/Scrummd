@@ -30,4 +30,8 @@ public abstract class NumberModel {
         mInitialValue = mNumbers[index];
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return mName.equalsIgnoreCase(((NumberModel) obj).getName());
+    }
 }
