@@ -1,11 +1,11 @@
 package com.ongtonnesoup.scrum.managers;
 
 import com.ongtonnesoup.scrum.ScrummdApplication;
+import com.ongtonnesoup.scrummd.domain.facades.NumberModelFacade;
+import com.ongtonnesoup.scrummd.domain.models.numbers.FibonacciNumberModel;
+import com.ongtonnesoup.scrummd.domain.models.numbers.ScrumNumberModel;
 import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
-import com.ongtonnesoup.scrum.models.numbers.FibonacciNumberModel;
-import com.ongtonnesoup.scrum.models.numbers.ScrumNumberModel;
-import com.ongtonnesoup.scrum.proxys.AndroidPersistenceProxy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,19 +29,21 @@ public class SelectedNumberModelTest {
 
     @Mock
     private PersistenceProxy mAndroidPersistenceProxy;
+    @Mock
+    private NumberModelFacade mNumberModelFacade;
     private SelectedNumberModel mSelectedNumberModel;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy, mNumberModelFacade);
     }
 
     @Test
     public void testSetsCurrentModelToPersistedModel() {
-        when(mAndroidPersistenceProxy.loadModel(SelectedNumberModel.KEY_MODEL)).thenReturn(new FibonacciNumberModel().getName());
+        when(mAndroidPersistenceProxy.loadModel()).thenReturn(new FibonacciNumberModel().getName());
 
-        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy);
+        mSelectedNumberModel = new SelectedNumberModel(mAndroidPersistenceProxy, mNumberModelFacade);
 
         assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new FibonacciNumberModel().getName());
     }
@@ -55,7 +57,7 @@ public class SelectedNumberModelTest {
     public void testSetCurrentModelReturnsTrueAndPersistsIfNewModelDoesNotEqualCurrentModel() {
         assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
 
-        boolean result = mSelectedNumberModel.setCurrentModel(new FibonacciNumberModel().getName());
+        boolean result = mSelectedNumberModel.setCurrentModel(new FibonacciNumberModel());
 
         assertTrue(result);
         verify(mAndroidPersistenceProxy).persist(anyString(), anyString());
@@ -65,7 +67,7 @@ public class SelectedNumberModelTest {
     public void testSetCurrentModelReturnsFalseIfNewModelEqualsCurrentModel() {
         assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
 
-        boolean result = mSelectedNumberModel.setCurrentModel(new ScrumNumberModel().getName());
+        boolean result = mSelectedNumberModel.setCurrentModel(new ScrumNumberModel());
 
         assertFalse(result);
         verify(mAndroidPersistenceProxy, never()).persist(anyString(), anyString());
