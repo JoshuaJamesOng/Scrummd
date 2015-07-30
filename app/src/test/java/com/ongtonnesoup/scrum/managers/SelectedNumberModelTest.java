@@ -61,17 +61,16 @@ public class SelectedNumberModelTest {
 
     @Test
     public void testSetsCurrentModelToScrumIfNoPersistedModel() {
-        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), mScrumNumberModel.getName());
     }
 
     @Test
     public void testSetCurrentModelReturnsTrueAndPersistsIfNewModelDoesNotEqualCurrentModel() {
-        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), new ScrumNumberModel().getName());
+        assertEquals(mSelectedNumberModel.getCurrentModel().getName(), mScrumNumberModel.getName());
 
         boolean result = mSelectedNumberModel.setCurrentModel(new FibonacciNumberModel());
 
         assertTrue(result);
-        verify(mAndroidPersistenceProxy).persist(anyString(), anyString());
     }
 
     @Test
@@ -81,7 +80,6 @@ public class SelectedNumberModelTest {
         boolean result = mSelectedNumberModel.setCurrentModel(mScrumNumberModel);
 
         assertFalse(result);
-        verify(mAndroidPersistenceProxy, never()).persist(anyString(), anyString());
     }
 
 }
