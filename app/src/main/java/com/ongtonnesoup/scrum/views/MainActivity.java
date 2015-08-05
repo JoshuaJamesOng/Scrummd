@@ -18,7 +18,8 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrum.adapters.NumberFragmentPagerAdapter;
-import com.ongtonnesoup.scrum.animations.PopupButtonAnimation;
+import com.ongtonnesoup.scrum.animations.PopupButtonImageFadeInAnimation;
+import com.ongtonnesoup.scrum.animations.PopupButtonImageFadeOutAnimation;
 import com.ongtonnesoup.scrum.animations.SettingsButtonAnimation;
 import com.ongtonnesoup.scrummd.presentation.presenters.MainPresenter;
 import com.ongtonnesoup.scrummd.presentation.views.MainView;
@@ -207,8 +208,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private class Animator {
 
         private void startFabAnimation() {
-            Animation animation = new PopupButtonAnimation(mAddButton);
-            animation.setAnimationListener(new Animation.AnimationListener() {
+            final Animation fadeOutAnimation = new PopupButtonImageFadeOutAnimation(mAddButton);
+            final Animation fadeInAnimation = new PopupButtonImageFadeInAnimation(mAddButton);
+
+            fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
 
@@ -216,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    setPopupButtonIcon(true);
+                    mAddButton.startAnimation(fadeInAnimation);
                 }
 
                 @Override
@@ -224,7 +227,25 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
                 }
             });
-            mAddButton.startAnimation(animation);
+
+            fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    setPopupButtonIcon(true);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            mAddButton.startAnimation(fadeOutAnimation);
         }
 
         private void startSettingsAnimation() {
@@ -233,8 +254,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         }
 
         private void revertFabAnimation() {
-            PopupButtonAnimation animation = (PopupButtonAnimation) mAddButton.getAnimation();
-            animation.revertAnimation();
+//            PopupButtonAnimation animation = (PopupButtonAnimation) mAddButton.getAnimation();
+//            animation.revertAnimation();
         }
 
     }
