@@ -21,6 +21,16 @@ public class AndroidResourceProxy implements ResourceProxy {
     }
 
     @Override
+    public String getSubmitSuccessMessage() {
+        return mResources.getString(R.string.estimate_submit_success);
+    }
+
+    @Override
+    public String getSubmitErrorMessage() {
+        return mResources.getString(R.string.estimate_submit_error);
+    }
+
+    @Override
     public int getPrimaryTextColor() {
         return mResources.getColor(R.color.black);
     }

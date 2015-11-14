@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
@@ -121,6 +122,11 @@ public class NumberFragment extends Fragment implements NumberView {
     @Override
     public void setColor(int color) {
         mCircleView.setBackgroundTintList(ColorStateList.valueOf(color));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
