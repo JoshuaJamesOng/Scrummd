@@ -1,15 +1,26 @@
 package com.ongtonnesoup.scrummd.presentation.presenters;
 
+import com.ongtonnesoup.scrummd.api.model.ApiResponse;
+import com.ongtonnesoup.scrummd.domain.facades.ApiServiceFacade;
+import com.ongtonnesoup.scrummd.domain.interfaces.ApiServiceCallback;
+import com.ongtonnesoup.scrummd.domain.models.User;
 import com.ongtonnesoup.scrummd.presentation.PresentationModule;
+import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.presentation.views.NumberView;
 
 import javax.inject.Inject;
 
-public class NumberPresenter {
+public class NumberPresenter implements ApiServiceCallback {
 
     @Inject
     SelectedNumberModel mSelectedNumberModel;
+    @Inject
+    ResourceProxy mResourceProxy;
+    @Inject
+    ApiServiceFacade mApiService;
+    @Inject
+    User mUser;
 
     private final NumberView mView;
     private String mEstimate;
@@ -46,4 +57,19 @@ public class NumberPresenter {
         mEstimate = initialValue;
     }
 
+    public void submitEstimate() {
+        mApiService.submit(mUser.id(), mEstimate, this);
+    }
+
+    @Override
+    public void onEstimateSubmitSuccess(ApiResponse response) {
+        String message = mResourceProxy.getSubmitSuccessMessage();
+        mView.showMessage(message);
+    }
+
+    @Override
+    public void onEstimateSubmitError() {
+        String message = mResourceProxy.getSubmitErrorMessage();
+        mView.showMessage(message);
+    }
 }

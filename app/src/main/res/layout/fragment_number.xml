@@ -1,20 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ongtonnesoup.scrum.views.NumberFragment">
 
-    <com.github.pavlospt.CircleView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/circle_view"
-        style="@style/EstimateNumber"
-        app:fillRadius="1.0"
-        app:subtitleText=""
-        app:titleColor="@color/white"
-        app:titleSize="@dimen/estimate_text_size" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/circle_view"
+            app:elevation="@dimen/elevation_none"
+            app:pressedTranslationZ="@dimen/elevation_none"
+            style="@style/EstimateNumber"/>
+
+        <TextView
+            android:id="@+id/estimate_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="@dimen/estimate_elevation"
+            android:textSize="@dimen/estimate_text_size"/>
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/image_view"
         style="@style/EstimateIcon"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
 </FrameLayout>
