@@ -1,6 +1,7 @@
 package com.ongtonnesoup.scrummd.presentation.presenters;
 
 import com.ongtonnesoup.scrummd.presentation.PresentationModule;
+import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.presentation.views.NumberView;
 
@@ -10,6 +11,8 @@ public class NumberPresenter {
 
     @Inject
     SelectedNumberModel mSelectedNumberModel;
+    @Inject
+    ResourceProxy mResourceProxy;
 
     private final NumberView mView;
     private String mEstimate;
@@ -46,4 +49,8 @@ public class NumberPresenter {
         mEstimate = initialValue;
     }
 
+    public void submitEstimate() {
+        String message = mResourceProxy.getSubmitSuccessMessage();
+        mView.showMessage(message);
+    }
 }
