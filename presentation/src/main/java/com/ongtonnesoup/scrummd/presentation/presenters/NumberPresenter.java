@@ -46,4 +46,7 @@ public class NumberPresenter {
         mEstimate = initialValue;
     }
 
+    public void submitEstimate() {
+        System.out.println("JJO: Submit estimate" + mEstimate);
+    }
 }
