@@ -6,35 +6,27 @@ import com.ongtonnesoup.scrummd.api.service.ScrummdService;
 
 import retrofit.Call;
 import retrofit.Callback;
-import retrofit.Response;
+import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 public class ScrummdApi implements ApiFacade {
+
+    private static final String BASE_URL = "http://www.google.co.uk";
 
     private final ScrummdService mService;
 
     public ScrummdApi() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("url")
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         mService = retrofit.create(ScrummdService.class);
     }
 
-    public void sendEstimate(String estimate) {
+    public void sendEstimate(String estimate, Callback<ApiResponse> callback) {
         Call<ApiResponse> call = mService.postEstimate(estimate);
-
-        call.enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Response<ApiResponse> response) {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+        call.enqueue(callback);
     }
 
 }
