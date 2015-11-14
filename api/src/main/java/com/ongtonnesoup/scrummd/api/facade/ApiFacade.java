@@ -6,6 +6,6 @@ import retrofit.Callback;
 
 public interface ApiFacade {
 
-    void sendEstimate(String estimate, Callback<ApiResponse> callback);
+    void sendEstimate(String user, String estimate, Callback<ApiResponse> callback);
 
 }

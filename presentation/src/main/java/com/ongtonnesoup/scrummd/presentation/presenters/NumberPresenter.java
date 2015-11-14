@@ -21,6 +21,8 @@ public class NumberPresenter implements ApiServiceCallback {
     @Inject
     ApiServiceFacade mApiService;
 
+    String mUser;
+
     private final NumberView mView;
     private String mEstimate;
     private int mIcon;
@@ -57,7 +59,7 @@ public class NumberPresenter implements ApiServiceCallback {
     }
 
     public void submitEstimate() {
-        mApiService.submit(mEstimate, this);
+        mApiService.submit(mUser, mEstimate, this);
     }
 
     @Override

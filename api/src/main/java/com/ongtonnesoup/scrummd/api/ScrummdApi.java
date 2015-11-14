@@ -25,8 +25,8 @@ public class ScrummdApi implements ApiFacade {
         mService = retrofit.create(ScrummdService.class);
     }
 
-    public void sendEstimate(String estimate, Callback<ApiResponse> callback) {
-        Call<ApiResponse> call = mService.postEstimate(estimate);
+    public void sendEstimate(String user, String estimate, Callback<ApiResponse> callback) {
+        Call<ApiResponse> call = mService.postEstimate(estimate, user);
         call.enqueue(callback);
     }
 

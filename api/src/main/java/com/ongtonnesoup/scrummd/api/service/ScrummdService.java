@@ -11,6 +11,6 @@ public interface ScrummdService {
 
     @FormUrlEncoded
     @POST("/scrummd/estimate")
-    Call<ApiResponse> postEstimate(@Field("estimate") String estimate);
+    Call<ApiResponse> postEstimate(@Field("estimate") String estimate, @Field("user") String user);
 
 }

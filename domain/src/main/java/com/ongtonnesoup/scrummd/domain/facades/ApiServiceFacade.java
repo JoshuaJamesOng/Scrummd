@@ -16,8 +16,8 @@ public class ApiServiceFacade {
         mScrummdApi = new ScrummdApi(baseUrl);
     }
 
-    public void submit(String estimate, final ApiServiceCallback callback) {
-        mScrummdApi.sendEstimate(estimate, new Callback<ApiResponse>() {
+    public void submit(String user, String estimate, final ApiServiceCallback callback) {
+        mScrummdApi.sendEstimate(user, estimate, new Callback<ApiResponse>() {
             @Override
             public void onResponse(Response<ApiResponse> response, Retrofit retrofit) {
                 ApiResponse apiResponse = response.body();
