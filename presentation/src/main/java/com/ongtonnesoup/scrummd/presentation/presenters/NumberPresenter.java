@@ -3,14 +3,13 @@ package com.ongtonnesoup.scrummd.presentation.presenters;
 import com.ongtonnesoup.scrummd.api.model.ApiResponse;
 import com.ongtonnesoup.scrummd.domain.facades.ApiServiceFacade;
 import com.ongtonnesoup.scrummd.domain.interfaces.ApiServiceCallback;
+import com.ongtonnesoup.scrummd.domain.models.User;
 import com.ongtonnesoup.scrummd.presentation.PresentationModule;
 import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.SelectedNumberModel;
 import com.ongtonnesoup.scrummd.presentation.views.NumberView;
 
 import javax.inject.Inject;
-
-import retrofit.Response;
 
 public class NumberPresenter implements ApiServiceCallback {
 
@@ -20,8 +19,8 @@ public class NumberPresenter implements ApiServiceCallback {
     ResourceProxy mResourceProxy;
     @Inject
     ApiServiceFacade mApiService;
-
-    String mUser;
+    @Inject
+    User mUser;
 
     private final NumberView mView;
     private String mEstimate;
@@ -59,7 +58,7 @@ public class NumberPresenter implements ApiServiceCallback {
     }
 
     public void submitEstimate() {
-        mApiService.submit(mUser, mEstimate, this);
+        mApiService.submit(mUser.id(), mEstimate, this);
     }
 
     @Override
