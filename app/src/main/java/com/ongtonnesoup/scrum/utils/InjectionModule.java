@@ -2,6 +2,7 @@ package com.ongtonnesoup.scrum.utils;
 
 import android.content.Context;
 
+import com.ongtonnesoup.scrum.BuildConfig;
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
 import com.ongtonnesoup.scrummd.api.ScrummdApi;
 import com.ongtonnesoup.scrummd.domain.facades.ApiServiceFacade;
@@ -113,7 +114,7 @@ public class InjectionModule {
     @Provides
     @Singleton
     public ApiServiceFacade provideApiServiceInteractor() {
-        return new ApiServiceFacade();
+        return new ApiServiceFacade(BuildConfig.BASE_URL);
     }
 
 }

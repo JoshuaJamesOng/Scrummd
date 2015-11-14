@@ -11,11 +11,12 @@ import retrofit.Retrofit;
 
 public class ScrummdApi implements ApiFacade {
 
-    private static final String BASE_URL = "http://www.google.co.uk";
-
+    private final String BASE_URL;
     private final ScrummdService mService;
 
-    public ScrummdApi() {
+    public ScrummdApi(String baseUrl) {
+        BASE_URL = baseUrl;
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

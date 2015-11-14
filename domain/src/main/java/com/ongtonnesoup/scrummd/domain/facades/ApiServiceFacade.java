@@ -12,8 +12,8 @@ public class ApiServiceFacade {
 
     ScrummdApi mScrummdApi;
 
-    public ApiServiceFacade() {
-        mScrummdApi = new ScrummdApi();
+    public ApiServiceFacade(String baseUrl) {
+        mScrummdApi = new ScrummdApi(baseUrl);
     }
 
     public void submit(String estimate, final ApiServiceCallback callback) {
