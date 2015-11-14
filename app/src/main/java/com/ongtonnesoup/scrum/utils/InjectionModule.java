@@ -3,6 +3,8 @@ package com.ongtonnesoup.scrum.utils;
 import android.content.Context;
 
 import com.ongtonnesoup.scrum.observers.ModelChangedObserver;
+import com.ongtonnesoup.scrummd.api.ScrummdApi;
+import com.ongtonnesoup.scrummd.domain.facades.ApiServiceFacade;
 import com.ongtonnesoup.scrummd.presentation.interfaces.PersistenceProxy;
 import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
 import com.ongtonnesoup.scrummd.presentation.presenters.NumberPresenter;
@@ -45,7 +47,8 @@ import dagger.Provides;
         PopupPresenter.class,
         NumberPresenter.class,
         ModelChangedObserver.class,
-        ColoursModel.class},
+        ColoursModel.class,
+        ApiServiceFacade.class},
         library = true, complete = true)
 public class InjectionModule {
 
@@ -106,4 +109,11 @@ public class InjectionModule {
     public NumberModelFacade provideNumberModelInteractor() {
         return new NumberModelFacade();
     }
+
+    @Provides
+    @Singleton
+    public ApiServiceFacade provideApiServiceInteractor() {
+        return new ApiServiceFacade();
+    }
+
 }

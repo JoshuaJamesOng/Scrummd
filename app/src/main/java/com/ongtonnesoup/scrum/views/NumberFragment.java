@@ -1,13 +1,16 @@
 package com.ongtonnesoup.scrum.views;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.github.pavlospt.CircleView;
 import com.ongtonnesoup.scrum.R;
 import com.ongtonnesoup.scrum.ScrummdApplication;
 import com.ongtonnesoup.scrummd.presentation.presenters.NumberPresenter;
@@ -23,7 +26,9 @@ public class NumberFragment extends Fragment implements NumberView {
     private static final String KEY_RESOURCE_ID = "KEY_Resource_Id";
 
     @InjectView(R.id.circle_view)
-    protected CircleView mCircleView;
+    protected FloatingActionButton mCircleView;
+    @InjectView(R.id.estimate_view)
+    protected TextView mEstimateView;
     @InjectView(R.id.image_view)
     protected ImageView mImageView;
 
@@ -76,6 +81,14 @@ public class NumberFragment extends Fragment implements NumberView {
             }
         }
 
+        mCircleView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mPresenter.submitEstimate();
+                return true;
+            }
+        });
+
         mPresenter.onNumberCreated();
 
         return view;
@@ -95,7 +108,7 @@ public class NumberFragment extends Fragment implements NumberView {
 
     @Override
     public void showEstimate(String number) {
-        mCircleView.setTitleText(number);
+        mEstimateView.setText(number);
         mImageView.setVisibility(View.INVISIBLE);
     }
 
@@ -103,13 +116,17 @@ public class NumberFragment extends Fragment implements NumberView {
     public void showIcon(int resourceId) {
         mImageView.setBackgroundResource(resourceId);
         mImageView.setVisibility(View.VISIBLE);
-        mCircleView.setTitleText("");
+        mEstimateView.setText("");
     }
 
     @Override
     public void setColor(int color) {
-        mCircleView.setFillColor(color);
-        mCircleView.setStrokeColor(color);
+        mCircleView.setBackgroundTintList(ColorStateList.valueOf(color));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
