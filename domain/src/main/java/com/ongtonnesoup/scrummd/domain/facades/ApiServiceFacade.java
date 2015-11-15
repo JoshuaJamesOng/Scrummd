@@ -24,13 +24,13 @@ public class ApiServiceFacade {
                 if (apiResponse != null && response.isSuccess()) {
                     callback.onEstimateSubmitSuccess(apiResponse);
                 } else {
-                    callback.onEstimateSubmitError();
+                    callback.onEstimateSubmitError(response.code());
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                callback.onEstimateSubmitError();
+                callback.onEstimateSubmitError(-1);
             }
         });
     }
