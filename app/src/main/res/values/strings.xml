@@ -8,6 +8,7 @@
     <string name="dialog_title">Number Model</string>
     <string name="dialog_tip">Select a number model to use</string>
     <string name="estimate_submit_success">Estimate submitted</string>
+    <string name="estimate_submit_no_active_issue">No active issue</string>
     <string name="estimate_submit_error">Failed to submit</string>
 
 </resources>

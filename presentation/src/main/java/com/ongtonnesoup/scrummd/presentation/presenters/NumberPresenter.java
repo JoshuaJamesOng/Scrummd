@@ -3,6 +3,7 @@ package com.ongtonnesoup.scrummd.presentation.presenters;
 import com.ongtonnesoup.scrummd.api.model.ApiResponse;
 import com.ongtonnesoup.scrummd.domain.facades.ApiServiceFacade;
 import com.ongtonnesoup.scrummd.domain.interfaces.ApiServiceCallback;
+import com.ongtonnesoup.scrummd.domain.models.ApiStatusCode;
 import com.ongtonnesoup.scrummd.domain.models.User;
 import com.ongtonnesoup.scrummd.presentation.PresentationModule;
 import com.ongtonnesoup.scrummd.presentation.models.ResourceProxy;
@@ -68,8 +69,21 @@ public class NumberPresenter implements ApiServiceCallback {
     }
 
     @Override
-    public void onEstimateSubmitError() {
-        String message = mResourceProxy.getSubmitErrorMessage();
+    public void onEstimateSubmitError(int statusCode) {
+        String message = null;
+
+        switch (statusCode) {
+            case ApiStatusCode.NO_ACTIVE_ISSUE:
+                message = mResourceProxy.getSubmitNoActiveIssueMessage();
+                break;
+            case ApiStatusCode.INVALID_FIELDS:
+                message = mResourceProxy.getSubmitInvalidFieldsMessage();
+                break;
+            default:
+                message = mResourceProxy.getSubmitErrorMessage();
+
+        }
+
         mView.showMessage(message);
     }
 }

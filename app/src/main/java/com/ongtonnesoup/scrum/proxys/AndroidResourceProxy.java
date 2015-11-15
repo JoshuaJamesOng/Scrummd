@@ -26,6 +26,16 @@ public class AndroidResourceProxy implements ResourceProxy {
     }
 
     @Override
+    public String getSubmitNoActiveIssueMessage() {
+        return mResources.getString(R.string.estimate_submit_no_active_issue);
+    }
+
+    @Override
+    public String getSubmitInvalidFieldsMessage() {
+        return mResources.getString(R.string.estimate_submit_error);
+    }
+
+    @Override
     public String getSubmitErrorMessage() {
         return mResources.getString(R.string.estimate_submit_error);
     }
